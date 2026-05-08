@@ -1,4 +1,4 @@
-# brightway-core user context (TEMPLATE)
+# core-ops user context (TEMPLATE)
 
 _This file is the template. Run `/setup-core` to generate your real `references/user-context.md` (which is gitignored)._
 

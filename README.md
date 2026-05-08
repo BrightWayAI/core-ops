@@ -1,4 +1,4 @@
-# brightway-core
+# core-ops
 
 A generic business-ops toolkit for Claude (Cowork + Claude Code).
 
@@ -14,8 +14,8 @@ Recommended: install via the [BrightWayAI marketplace](https://github.com/Bright
 Or directly:
 
 ```
-/plugin marketplace add BrightWayAI/core
-/plugin install brightway-core@core
+/plugin marketplace add BrightWayAI/core-ops
+/plugin install core-ops@core
 ```
 
 ## First-time setup

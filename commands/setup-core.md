@@ -1,10 +1,10 @@
 ---
-description: Configure brightway-core for your CRM, brand, and company context via a short interview. Writes results to references/user-context.md so the pipeline-analyst agent and review-deliverable command can do real work. Re-run anytime to update.
+description: Configure core-ops for your CRM, brand, and company context via a short interview. Writes results to references/user-context.md so the pipeline-analyst agent and review-deliverable command can do real work. Re-run anytime to update.
 ---
 
 # /setup-core
 
-Short interview that captures the context the brightway-core agents and commands need to actually be useful for *you* (not just BrightWay).
+Short interview that captures the context the core-ops agents and commands need to actually be useful for *you* (not just BrightWay).
 
 ---
 
@@ -12,7 +12,7 @@ Short interview that captures the context the brightway-core agents and commands
 
 Read `references/user-context.md` if it exists.
 
-- If it exists and is populated → ask: "You've already configured brightway-core. Want to update specific sections, or start over?"
+- If it exists and is populated → ask: "You've already configured core-ops. Want to update specific sections, or start over?"
   - "Update [section]" → jump to that section, ask only those questions, write back.
   - "Start over" → continue full interview.
 - If it doesn't exist → start fresh. Read `references/user-context.template.md` for the structure to populate.
@@ -60,7 +60,7 @@ Ask one section at a time. After each section, summarize what you heard and ask 
 Populate `references/user-context.md` with the answers, using the template structure. Format clearly — agents and commands will read this file every invocation, so structure it for fast reading:
 
 ```markdown
-# brightway-core user context
+# core-ops user context
 
 _Last updated: [date]_
 

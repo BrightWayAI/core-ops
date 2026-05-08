@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Configure brightway-core for your CRM, brand, and company context. Auto-fires on "set up brightway-core", "configure pipeline analysis", "set up deliverable review", "/setup-core", or any phrase about getting brightway-core ready to use. Also fires when another brightway-core skill or agent reports that user-context.md is missing or empty.
+description: Configure core-ops for your CRM, brand, and company context. Auto-fires on "set up core-ops", "configure pipeline analysis", "set up deliverable review", "/setup-core", or any phrase about getting core-ops ready to use. Also fires when another core-ops skill or agent reports that user-context.md is missing or empty.
 ---
 
 See `commands/setup-core.md` for the full interview workflow.
@@ -8,9 +8,9 @@ See `commands/setup-core.md` for the full interview workflow.
 ## When this skill fires automatically
 
 - User runs `/setup-core` directly
-- User says: "set up brightway-core", "configure brightway-core", "set up pipeline analyst", "set up deliverable review", "configure my CRM context"
+- User says: "set up core-ops", "configure core-ops", "set up pipeline analyst", "set up deliverable review", "configure my CRM context"
 - User installs the plugin for the first time and asks "how do I use this?"
-- Another brightway-core skill or agent reports that `references/user-context.md` is missing — auto-route here
+- Another core-ops skill or agent reports that `references/user-context.md` is missing — auto-route here
 
 ## Quick path
 
