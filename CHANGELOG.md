@@ -4,6 +4,20 @@ All notable changes to core-ops are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.3.0] — Nucleus visibility layer (2026-05-12)
+
+### Added
+- **`/nucleus-status`** — at-a-glance text snapshot of the Nucleus stack. Installed plugins, setup state (configured/template/missing), connector availability, recent activity, memory health, anything broken. Terse output (~30-40 lines), fits in chat, scannable in 10 seconds. Read-only. Zero model calls.
+- **`/nucleus-dashboard`** v1 — rich visual dashboard as a Cowork HTML artifact titled "Nucleus Dashboard." Six section cards: Stack overview, This week (activity histogram + top skills + rusty skills), Cortex memory health (decay state distribution + person pages + triage log), Outreach pipeline (lead-engine), Time + invoicing (time-tracking), Impact loop (v1 placeholder; v1.1 ships content). Re-renders on demand via `/nucleus-dashboard`. Markdown snapshot fallback at `<config-root>/nucleus-dashboard.md` in Claude Code. Zero model calls.
+- **`references/nucleus-dashboard-template.html`** — bundled HTML template with inline SVG charts. No external libraries.
+- **Both commands gracefully degrade.** Missing connectors, missing memory, missing telemetry — each section renders an honest placeholder rather than failing the whole render.
+
+### Why this matters
+With the marketplace at 13 plugins and the second-brain layer in active use, users (starting with the solo founder, scaling to teams) need a way to see what's installed, what's configured, what's running, and what their system is producing — without grepping the filesystem manually. `/nucleus-status` is the quick check; `/nucleus-dashboard` is the live surface. Both sit alongside `/diagnose` (troubleshooting) in core-ops as the visibility cluster.
+
+### Roadmap
+- v1.1 adds the Impact loop section content (drafted→sent ratios across drafting plugins, mining proposal accept rate, P0 completion rate). Deferred from v1 because the metrics need a week of telemetry to populate sensibly.
+
 ## [0.2.3] — Platform-agnostic Step 0 (2026-05-12)
 
 ### Changed
