@@ -4,6 +4,14 @@ All notable changes to core-ops are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.2.3] — Platform-agnostic Step 0 (2026-05-12)
+
+### Changed
+- **Setup command Step 0 now platform-agnostic.** Every `request_cowork_directory(...)` call is conditional: "In Cowork, call `request_cowork_directory(...)`. In Claude Code (or any environment with direct filesystem access), no mount is needed." Same plugin source works in both runtimes.
+
+### Why this matters
+Phase 0 of SECOND-BRAIN-V2-SPEC. Removes the implicit Cowork-only assumption so Claude Code users do not hit unsupported tool calls during setup.
+
 ## [0.2.0] — Config-root refactor + previously in-flight features
 
 ### Changed (config-root refactor)
