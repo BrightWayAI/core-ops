@@ -1,33 +1,58 @@
 ---
-description: Configure core-ops for your CRM, brand, and company context via a short interview. Writes results to references/user-context.md so the pipeline-analyst agent and review-deliverable command can do real work. Re-run anytime to update.
+description: Configure core-ops for your CRM, brand, and company context via a short interview. Writes results to `<config-root>/plugins/core-ops.user-context.md` (where `<config-root>` is the folder you choose during first-time setup, stored at `~/.claude-plugin-config-root`). Re-run anytime to update.
 ---
 
 # /setup-core
 
-Short interview that captures the context the core-ops agents and commands need to actually be useful for *you* (not just BrightWay).
+Short interview that captures the context the core-ops agents and commands need to actually be useful for *you*.
 
 ---
 
-## Pre-step — Read shared identity (if available)
+## Step 0 — Resolve plugin config root
 
-Before asking identity-style questions (name, company, role, primary tools), check whether `~/Documents/Claude/identity.md` exists. This is a shared identity file populated by cortex's `/setup-identity` command — every BrightWayAI marketplace plugin reads it.
+Per-plugin config in this marketplace lives under a user-chosen folder, recorded at `~/.claude-plugin-config-root` (a single-line text file in the user's home directory). Resolve it before doing anything else.
 
-- **If it exists and is populated:** read it. Use the values to pre-fill the Identity section of this interview. Skip those questions; just confirm what you read.
-- **If it doesn't exist:** offer the user:
-  > "There's a shared identity file (`/setup-identity` in cortex) that other plugins read too — capture name/company/role/tools once and every plugin uses it. Want to run `/setup-identity` first (recommended, ~2 min), or capture identity inline here only?"
-  - "Run /setup-identity first" → route there, then resume.
-  - "Inline" → proceed normally.
+### A — Try the pointer
+
+Call `request_cowork_directory(~)` once if not already granted, then read `~/.claude-plugin-config-root`.
+
+- **Pointer exists**: read line 1 → that's the config root path. Call `request_cowork_directory(<config-root>)` to mount it. Skip to section C.
+- **Pointer missing**: continue to section B.
+
+### B — First-time bootstrap
+
+This is the user's first plugin setup of any kind. Prompt:
+
+> "First-time plugin setup. Where should I store your plugin config — identity, voice, and per-plugin settings? Pick a folder you control. Examples: `~/Documents/Claude/` (a common pick — and where cortex memory already writes if you have it installed) or `~/Documents/PluginConfig/` or any other path you prefer. The folder will hold one `identity.md`, one `voice.md`, and a `plugins/` subdirectory with one file per plugin you set up."
+
+Once the user provides the path:
+
+1. Call `request_cowork_directory(<path>)` to mount it.
+2. Create `<path>/plugins/` if it doesn't exist.
+3. Write the absolute path to `~/.claude-plugin-config-root`.
+4. Confirm: "Saved. All marketplace plugin configs will live under `<path>` from now on. You can change this later by editing `~/.claude-plugin-config-root` directly."
+5. **Migration**: if `~/Documents/Claude/identity.md` or `~/Documents/Claude/voice.md` exists and `<path>` is *not* `~/Documents/Claude/`, ask: "Migrate existing identity.md / voice.md into `<path>`? (Y/N)" — if yes, copy them.
+6. **Pre-staged content**: if any `~/Documents/Claude/plugin-configs/*.user-context.md` files exist (a pattern from users who pre-populated configs), offer to copy them into `<path>/plugins/`.
+
+### C — Read shared identity
+
+Read `<config-root>/identity.md` (the canonical identity file populated by cortex's `/setup-identity`).
+
+- **Exists and populated** → pre-fill the Identity section of this interview from those values. Skip those questions; just confirm what you read.
+- **Missing** → offer: "Want to capture name/company/role/tools once via `/setup-identity` (in cortex) so all marketplace plugins can read it? Or capture identity inline here only?" Route to `/setup-identity` if user prefers, then resume. Otherwise proceed inline.
+
+For the rest of this document, **`<config-root>`** refers to the resolved path. This plugin's config file lives at **`<config-root>/plugins/core-ops.user-context.md`**.
 
 ---
 
 ## Step 1 — Check for existing config
 
-Read `references/user-context.md` if it exists.
+Read `<config-root>/plugins/core-ops.user-context.md` if it exists.
 
 - If it exists and is populated → ask: "You've already configured core-ops. Want to update specific sections, or start over?"
   - "Update [section]" → jump to that section, ask only those questions, write back.
   - "Start over" → continue full interview.
-- If it doesn't exist → start fresh. Read `references/user-context.template.md` for the structure to populate.
+- If it doesn't exist → start fresh. Read `references/user-context.template.md` (bundled with the plugin source) for the structure to populate.
 
 ---
 
@@ -69,7 +94,7 @@ Ask one section at a time. After each section, summarize what you heard and ask 
 
 ## Step 3 — Write the config
 
-Populate `references/user-context.md` with the answers, using the template structure. Format clearly — agents and commands will read this file every invocation, so structure it for fast reading:
+Populate `<config-root>/plugins/core-ops.user-context.md` with the answers, using the template structure. Format clearly — agents and commands will read this file every invocation, so structure it for fast reading:
 
 ```markdown
 # core-ops user context
@@ -120,4 +145,4 @@ After writing, summarize what was saved (one short paragraph) and offer a concre
 - **Skip what doesn't apply.** If the user doesn't have a brand guide, "no brand guide yet" is a valid answer — capture it as such.
 - **Don't pad answers.** If the user says "skip Section 4," skip it. Note in user-context that it was skipped so the agents know to use defaults.
 - **Idempotent.** Running `/setup-core` again should let the user update sections without re-doing everything.
-- **Privacy-respecting.** Everything written goes to `references/user-context.md`, which is gitignored — never committed to a fork.
+- **Privacy-respecting.** Everything written goes to `<config-root>/plugins/core-ops.user-context.md`, which is gitignored — never committed to a fork.

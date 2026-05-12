@@ -4,7 +4,7 @@ description: Audit the user's plugin ecosystem health. Checks shared config file
 
 # /diagnose
 
-Health check for your BrightWayAI plugin ecosystem. Reports what's set up correctly, what's missing, and what to do about it.
+Health check for your marketplace plugin ecosystem. Reports what's set up correctly, what's missing, and what to do about it.
 
 This command is part of `core-ops` because the toolkit plugin is the natural place for cross-cutting diagnostics. You can invoke it whenever something feels broken or whenever you've added/changed plugins and want to confirm everything's wired up.
 
