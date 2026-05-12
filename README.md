@@ -2,7 +2,7 @@
 
 A generic business-ops toolkit for Claude (Cowork + Claude Code).
 
-The shared-utility plugin that other plugins in the [BrightWayAI marketplace](https://github.com/BrightWayAI/claude-plugins) lean on. Hosts two subagents (CRM intelligence) and the cross-cutting infrastructure commands (`/diagnose`, telemetry, schedule library). Configurable per user via `/setup-core` — works with any CRM and any brand once configured.
+The shared-utility plugin that other plugins in the [BrightWayAI marketplace](https://github.com/BrightWayAI/nucleus) lean on. Hosts two subagents (CRM intelligence) and the cross-cutting infrastructure commands (`/diagnose`, telemetry, schedule library). Configurable per user via `/setup-core` — works with any CRM and any brand once configured.
 
 ## What's inside
 
@@ -22,11 +22,11 @@ The shared-utility plugin that other plugins in the [BrightWayAI marketplace](ht
 
 ## Install
 
-Recommended: install via the [BrightWayAI marketplace](https://github.com/BrightWayAI/claude-plugins).
+Recommended: install via the [BrightWayAI marketplace](https://github.com/BrightWayAI/nucleus).
 
 ```
-/plugin marketplace add BrightWayAI/claude-plugins
-/plugin install core-ops@claude-plugins
+/plugin marketplace add BrightWayAI/nucleus
+/plugin install core-ops@nucleus
 ```
 
 ## First-time setup
