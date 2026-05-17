@@ -4,6 +4,18 @@ All notable changes to core-ops are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.3.1] — Schedule library: /listen + /research-gaps (2026-05-16)
+
+### Added
+- `nightly-listen` schedule row in `references/schedules.template.md` — registers `/listen` (cortex v4.7+) at 11pm daily for unattended overnight ingest. Recommended for users running cortex with `/setup-sources` configured.
+- `weekly-research-gaps` schedule row — registers `/research-gaps` (cortex v4.5+) at 9am Saturday for weekly autonomous gap-fill scans.
+
+### Why
+cortex v4.7 shipped `/listen` for nightly autonomous ingest. Without a registered cron, the pipeline never runs. This patch adds the schedule entry so `/register-schedules` automatically wires it. Same for `/research-gaps`'s recommended weekly cadence.
+
+### Migration
+Existing users on v0.3.0 should re-run `/register-schedules` after updating to v0.3.1. The new rows are registered as new entries; pre-existing schedules remain (idempotent — register-schedules uses the `last_registered_id` annotation to skip duplicates).
+
 ## [0.3.0] — Nucleus visibility layer (2026-05-12)
 
 ### Added

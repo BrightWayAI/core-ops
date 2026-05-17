@@ -1,6 +1,6 @@
 {
   "name": "core-ops",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Generic business-ops toolkit for Claude. Includes a CRM pipeline analyzer and a client deliverable reviewer. Configurable per user via /setup-core — works with any CRM and any brand once configured.",
   "author": {
     "name": "BrightWay AI"

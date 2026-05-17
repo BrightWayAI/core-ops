@@ -8,6 +8,7 @@ The defaults below match the most common patterns for users running the full Bri
 
 | Name                  | Cron / Schedule         | Action                       | Plugin Required          | Owner | Notes                                                                |
 |-----------------------|-------------------------|------------------------------|--------------------------|-------|----------------------------------------------------------------------|
+| nightly-listen        | daily 23:00 (11pm)      | /listen                      | claude-cortex (v4.7+)    | self  | Nightly autonomous ingest. Archives yesterday's calendar/inbox/slack/transcripts. Stages /morning proposals. |
 | daily-end-day         | weekday 17:00 (5pm)     | /end-day                     | claude-cortex            | self  | Daily reflection ritual. Captures wins/blocks/learnings to memory.   |
 | daily-track-time      | weekday 18:00 (6pm)     | /track-time                  | time-tracking            | self  | Pull yesterday's calendar, classify billable time. ~5 min daily.     |
 | weekly-end-week       | Friday 16:00 (4pm)      | /end-week                    | claude-cortex            | self  | Friday wrap-up: transcript-reviewer, cleanup, review, reflection.    |
@@ -16,6 +17,7 @@ The defaults below match the most common patterns for users running the full Bri
 | weekly-transcripts    | Friday 16:00            | (via /end-week)              | claude-cortex            | self  | Surfaces uncaptured commitments. Triggered inside /end-week.         |
 | weekly-referrals      | Friday 14:00            | /referrals                   | referral-engine          | self  | Weekly referral digest — top 3 actions for the week.                 |
 | weekly-client-status  | Friday 14:00            | /client-status               | client-status            | self  | Drafts weekly client updates per active engagement.                  |
+| weekly-research-gaps  | Saturday 09:00          | /research-gaps               | claude-cortex (v4.5+)    | self  | Weekly memory-gap scan. Stages draft for review.                     |
 | monthly-invoices      | 1st of month 09:00      | /generate-invoices           | time-tracking            | self  | Generate invoices for prior month. Review and send.                  |
 | monthly-pipeline-fcst | 1st of month 10:00      | /forecast                    | core-ops                 | self  | Monthly pipeline forecast for runway / target tracking.              |
 | monthly-cleanup       | 1st of month 17:00      | /cleanup                     | claude-cortex            | self  | Memory hygiene audit.                                                |
