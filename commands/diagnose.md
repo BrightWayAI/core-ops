@@ -34,6 +34,19 @@ If missing: ✗ → "Run `/setup-voice` (cortex) to capture writing voice once. 
 
 If missing: ✗ → "Cortex hasn't been initialized. Either install claude-cortex or, if installed, restart Cowork to trigger initialization."
 
+### 1D — Memory-as-git (`~/Documents/Claude/memory/.git/`)
+
+Versioned memory powers `/morning`'s overnight-diff review and rollback safety (cortex v4.12.0+). Report a one-line health status (this is informational — memory-as-git is optional):
+
+- **Enabled?** Does `<config-root>/memory/.git/` exist?
+  - **No** → ⚠ (not an error) → "Memory-as-git not initialized — diffs/rollback unavailable. Run `/setup-identity` (cortex) to enable, or set `memory_as_git.enabled: true` in `cortex.user-context.md`."
+  - **Yes** → continue.
+- **Last commit when?** `git -C <config-root>/memory log -1 --format='%cd (%s)' --date=short`. If the most recent commit is older than ~3 days on a working day, note: "Last memory commit was <date> — `/end-day` Step 5.8 commits daily; run `/end-day` to catch up."
+- **Working tree clean?** `git -C <config-root>/memory status --porcelain | wc -l`. If non-zero, note: "<N> uncommitted memory changes — next `/end-day` will commit them, or commit manually."
+- **Remote configured?** Read `memory_as_git.remote` from `cortex.user-context.md` (and/or `git -C <config-root>/memory remote -v`). If set, report the remote + whether `push_on_close` is on; if a remote is set but the local is ahead of it, note "N commits not pushed." If no remote, report "local-only (default)" — not a problem, just informational.
+
+Surface all of the above as a single `Memory-as-git: <enabled/disabled> · last commit <date> · <clean/N dirty> · <local-only | remote: pushed/N behind>` line in the Step 5 checklist.
+
 ---
 
 ## Step 2 — Check plugin setup state

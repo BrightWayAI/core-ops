@@ -4,6 +4,11 @@ All notable changes to core-ops are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.3.2] — /diagnose memory-as-git health line (2026-06-08)
+
+### Added
+- `/diagnose` Step 1D — memory-as-git health check (closes the last build-plan item of the cortex memory-as-git proposal). Reports enabled? / last-commit / clean-tree / remote status as one informational line in the Step 5 checklist. Coordinated with cortex v4.13.0.
+
 ## [0.3.1] — Schedule library: /listen + /research-gaps (2026-05-16)
 
 ### Added
