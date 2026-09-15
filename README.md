@@ -2,17 +2,19 @@
 
 A generic business-ops toolkit for Claude (Cowork + Claude Code).
 
-The shared-utility plugin that other plugins in the [BrightWayAI marketplace](https://github.com/BrightWayAI/nucleus) lean on. Hosts two subagents (CRM intelligence) and the cross-cutting infrastructure commands (`/diagnose`, telemetry, schedule library). Configurable per user via `/setup-core` — works with any CRM and any brand once configured.
+The shared-utility plugin that other plugins in the [BrightWayAI marketplace](https://github.com/BrightWayAI/nucleus) lean on. Hosts the `chief-of-staff` natural-language front door, two CRM-intelligence subagents, and the cross-cutting infrastructure commands (`/diagnose`, telemetry, schedule library). Configurable per user via `/setup-core` — works with any CRM and any brand once configured.
 
 ## What's inside
 
-### Subagents (2)
+### Agents (3)
 
-- **`pipeline-analyst`** — point-in-time CRM ranking. Scores and ranks pipeline by recency × signal strength × stage, returning a prioritized weekly action list. Used by `weekly-outreach`, `plan-tomorrow`, any pipeline-review workflow.
+- **`chief-of-staff`** — natural-language front door for the whole Nucleus stack. Loads `hot.md` + `index.md`, routes any request or role-addressed ask to the right installed command, narrates read-only work, and confirms before anything that writes, sends, or spends. Replaces the retired `nucleus-router` plugin.
+- **`pipeline-analyst`** — point-in-time CRM ranking. Scores and ranks pipeline by recency × signal strength × stage, returning a prioritized weekly action list.
 - **`pipeline-forecast`** — forward-looking revenue projection. Uses stage probabilities × deal values × historical close rates to forecast a window's revenue with sensitivity analysis (best / expected / worst / stretch), needle-mover deals, gap-to-target. Used monthly or pre-board-meeting.
 
-### Slash commands (6)
+### Slash commands (7)
 
+- **`/cos`** — talk to your chief of staff. Natural-language front door; also fires implicitly on plain conversation via `skills/cos/SKILL.md` wherever the host supports always-loaded skill routing.
 - **`/setup-core`** — interview that captures CRM context, brand context, owner info. Writes to `references/user-context.md`.
 - **`/diagnose`** — ecosystem health check. Audits shared config files (`identity.md`, `voice.md`, cortex memory), plugin setup state, subagent availability, connector wiring. Produces a green/red checklist with specific fix instructions.
 - **`/test-connectors`** — performs bounded, read-only calls against real authorized connectors and returns a sanitized release-certification report. User assertions and mocked payloads cannot pass.
@@ -57,9 +59,11 @@ This plugin is a hub — many other plugins delegate to its subagents:
 ```
 .claude-plugin/plugin.json     Plugin manifest
 agents/
+  chief-of-staff.md            Agent: natural-language front door (replaces nucleus-router)
   pipeline-analyst.md          Subagent: weekly CRM pipeline ranking
   pipeline-forecast.md         Subagent: forward-looking revenue projection
 commands/
+  cos.md                       Invoke the chief-of-staff agent
   setup-core.md                Interview and config writer
   diagnose.md                  Ecosystem health check
   test-connectors.md           Live, read-only connector certification
@@ -67,6 +71,7 @@ commands/
   agent-metrics.md             Telemetry: read-only log digest
   register-schedules.md        Bulk-register schedules from library
 skills/
+  cos/SKILL.md                 Always-loaded: routes free-form requests to the agent
   setup/SKILL.md               Auto-fires on setup phrases
   diagnose/SKILL.md            Auto-fires on diagnose phrases
   test-connectors/SKILL.md     Auto-fires on integration-test and release-certification phrases

@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.6.0] — chief-of-staff agent + /cos, nucleus-router retired (2026-09-15)
+
+Nucleus Operating Model Refactor Phase 3 step 3.1. Adds the natural-language
+front door that replaces the standalone `nucleus-router` plugin.
+
+### Added
+- `agents/chief-of-staff.md` — job-description-style agent (purpose, goals,
+  success/failure criteria, escalation rules, tools). Loads
+  `<config-root>/memory/hot.md` + `index.md`, reads the autonomy policy in
+  `memory/CLAUDE.md`, and routes natural-language or role-addressed requests
+  to the matching installed plugin command. Narrates read-only/drafting work;
+  confirms before ASK FIRST/NEVER-tier actions.
+- `/cos` command — explicit invocation of the agent.
+- `skills/cos/SKILL.md` — always-loaded routing skill, thin wrapper around
+  the agent (no inline intent tables — routing logic lives in the job
+  description, per the refactor's "agents are job descriptions, not
+  procedures" principle).
+
+### Removed
+- Retired the `nucleus-router` plugin entirely (archived on GitHub with a
+  redirect README pointing at `/cos` in this plugin; local clone removed).
+  Cross-references in `relationships` skill docs and cortex's
+  `references/autonomy.md` updated to point at the chief-of-staff agent.
+
 ## [0.5.0] — /review-deliverable moved to delivery (2026-09-15)
 
 Nucleus Operating Model Refactor Phase 3 step 3.3. `project-setup` renamed to
