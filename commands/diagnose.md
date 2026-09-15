@@ -98,7 +98,7 @@ Then for each plugin in the marketplace catalog:
 | clients | `/setup-projects`, `/setup-status` | `/project-setup` uses a real offering and `/client-status` drafts only |
 | admin | `/setup-time` | `/track-time` can classify pasted or calendar events |
 | comms | `/setup-style` | `/style` reads the canonical voice file |
-| research | `/setup-news` | `/ai-roundup` doesn't error on its source gate |
+| research | `/setup-news` | `/roundup` doesn't error on its source gate |
 | alignment | `/setup` | `/scan` names a missing Slack source instead of inventing activity |
 
 For each plugin the user says they have:
@@ -121,8 +121,8 @@ Each subagent is registered in Claude's `subagent_type` enum when its plugin is 
 | `relationships-director` | growth | "Used for ranking and single-contact research." |
 | `pipeline-analyst` | growth | "Available to growth, briefing, clients, and pipeline reviews." |
 | `pipeline-forecast` | growth | "Used for monthly or explicit forecasts." |
-| `news-curator` (agent) | research | "Used by `/ai-roundup`." |
-| `post-assembler` | research | "Used by `/ai-roundup`." |
+| `news-curator` (agent) | research | "Used by `/roundup`." |
+| `post-assembler` | comms | "Used by `/post` (drafts staged `/roundup` candidates)." |
 | `alignment-scanner` | alignment | "Used by Slack scan, pulse, report, and risk updates." |
 
 For each: report whether the parent plugin is installed (per Step 2). If yes → ✓. If no → ✗ "Install [plugin] to make this subagent available."

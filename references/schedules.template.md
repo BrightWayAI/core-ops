@@ -10,7 +10,7 @@ customize the user-owned copy. The installed plugin directory is read-only at ru
 | nightly-listen | daily 23:00 (11pm) | `/listen` | cortex | self | Unattended ingest with a post-06:00 stale-trigger guard. Stages proposals and refreshes `hot.md`; never writes durable nodes directly. |
 | weekly-end-week | Friday 16:00 (4pm) | `/end-week` | cortex | self | Optional weekly review, cleanup, and reflection. |
 | weekly-relationships | Monday 06:00 | `/relationships` | growth | self | Prepares the week's prioritized relationship actions; never sends. |
-| weekly-news-roundup | Friday 07:00 | `/ai-roundup` | research | self | Prepares cited roundup candidates and a draft. |
+| weekly-news-roundup | Friday 07:00 | `/roundup` | research | self | Stages cited roundup candidates; run comms's `/post` (or `/roundup --draft` if comms is installed) to draft. |
 | weekly-client-status | Friday 14:00 | `/client-status` | clients | self | Produces reviewable client-status drafts; never sends. |
 | weekly-research-gaps | Saturday 09:00 | `/research-gaps` | cortex | self | Stages cited memory-gap proposals for review. |
 | monthly-invoices | 1st of month 09:00 | `/generate-invoices` | admin | self | Generates invoice drafts for the prior month; never sends. |
