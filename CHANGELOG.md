@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.5.0] — /review-deliverable moved to delivery (2026-09-15)
+
+Nucleus Operating Model Refactor Phase 3 step 3.3. `project-setup` renamed to
+`delivery` and absorbed `client-status` + this plugin's `/review-deliverable`.
+
+### Removed
+- `commands/review-deliverable.md`, `skills/review-deliverable/SKILL.md` —
+  moved to the `delivery` plugin. Brand/CRM config (`core-ops.user-context.md`)
+  stays owned by this plugin; `delivery` reads it cross-plugin, same pattern
+  as `relationships` reading CRM config from here.
+
 ## [0.4.4] — writing-style renamed to voice (2026-09-15)
 
 ### Changed

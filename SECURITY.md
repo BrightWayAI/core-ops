@@ -2,11 +2,10 @@
 
 ## What this plugin does with your data
 
-Core Ops is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-forecast` subagents (CRM intelligence), provides `/review-deliverable` (file QA), `/diagnose` (ecosystem health), telemetry (`/log-agent-run`, `/agent-metrics`), and the schedule library (`/register-schedules`).
+Core Ops is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-forecast` subagents (CRM intelligence), `/diagnose` (ecosystem health), telemetry (`/log-agent-run`, `/agent-metrics`), and the schedule library (`/register-schedules`).
 
 **Reads:**
 - **CRM** — for `pipeline-analyst` and `pipeline-forecast` subagents (deals, contacts, pipeline stages, owners, custom properties).
-- **Files** — for `/review-deliverable`, reads the deliverable file you point at (local path or Drive URL).
 - **Plugin references** — `references/user-context.md` (CRM details, brand context), `references/schedules.md` (schedule library), `references/agent-log-schema.md` (documentation).
 - **Agent log** — `~/.brightway-state/agent-log.jsonl` (read-only by `/agent-metrics`).
 - **Shared user-level config** — `~/Documents/Claude/identity.md` (read-only).
@@ -20,7 +19,6 @@ Core Ops is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-fo
 
 **Does not:**
 - **Modify the CRM.** Pipeline subagents are read-only.
-- **Modify deliverables.** `/review-deliverable` produces findings; never edits the file.
 - **Auto-register schedules.** Always shows the list and waits for "y" before any registration.
 - **Modify the agent log.** Append-only by design; `/agent-metrics` is strictly read-only.
 - **Log message content or sensitive data** — the agent-log captures only meta-records (agent / parent skill / confidence / user action). See `references/agent-log-schema.md` for the explicit privacy guidance.
@@ -35,7 +33,6 @@ Core Ops is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-fo
 ## What gets sent off your machine
 
 - Whatever your authorized CRM connector sends when `pipeline-analyst` / `pipeline-forecast` invoke it.
-- For `/review-deliverable` reading from Drive: whatever your Drive connector sends.
 - The agent log never leaves your machine — it's a local observability file.
 
 ## Supported versions

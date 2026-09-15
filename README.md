@@ -11,10 +11,9 @@ The shared-utility plugin that other plugins in the [BrightWayAI marketplace](ht
 - **`pipeline-analyst`** — point-in-time CRM ranking. Scores and ranks pipeline by recency × signal strength × stage, returning a prioritized weekly action list. Used by `weekly-outreach`, `plan-tomorrow`, any pipeline-review workflow.
 - **`pipeline-forecast`** — forward-looking revenue projection. Uses stage probabilities × deal values × historical close rates to forecast a window's revenue with sensitivity analysis (best / expected / worst / stretch), needle-mover deals, gap-to-target. Used monthly or pre-board-meeting.
 
-### Slash commands (5)
+### Slash commands (6)
 
 - **`/setup-core`** — interview that captures CRM context, brand context, owner info. Writes to `references/user-context.md`.
-- **`/review-deliverable [path]`** — QA pass on a client deliverable (deck, doc, spreadsheet, one-pager) against your brand guide and the original brief. Returns location-tagged findings ranked by severity, plus a ship/no-ship verdict.
 - **`/diagnose`** — ecosystem health check. Audits shared config files (`identity.md`, `voice.md`, cortex memory), plugin setup state, subagent availability, connector wiring. Produces a green/red checklist with specific fix instructions.
 - **`/test-connectors`** — performs bounded, read-only calls against real authorized connectors and returns a sanitized release-certification report. User assertions and mocked payloads cannot pass.
 - **`/log-agent-run`** — append a meta-record about a notable subagent invocation to `~/.brightway-state/agent-log.jsonl`. Captures agent / parent skill / confidence / user action — never message content.
@@ -62,7 +61,6 @@ agents/
   pipeline-forecast.md         Subagent: forward-looking revenue projection
 commands/
   setup-core.md                Interview and config writer
-  review-deliverable.md        Slash command for deliverable QA
   diagnose.md                  Ecosystem health check
   test-connectors.md           Live, read-only connector certification
   log-agent-run.md             Telemetry: append to agent-log.jsonl
@@ -70,7 +68,6 @@ commands/
   register-schedules.md        Bulk-register schedules from library
 skills/
   setup/SKILL.md               Auto-fires on setup phrases
-  review-deliverable/SKILL.md  Auto-fires on review phrases
   diagnose/SKILL.md            Auto-fires on diagnose phrases
   test-connectors/SKILL.md     Auto-fires on integration-test and release-certification phrases
   log-agent-run/SKILL.md       Auto-fires on log phrases
