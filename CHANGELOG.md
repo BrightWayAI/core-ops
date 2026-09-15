@@ -4,6 +4,12 @@ All notable changes to ops (formerly core-ops) are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.8.0] — pipeline agents move to growth (2026-09-15)
+
+### Changed
+- `pipeline-analyst` and `pipeline-forecast` subagents (and their Codex mirrors) moved to the `growth` plugin. `chief-of-staff` (`/cos`) now delegates to `growth:pipeline-analyst` / `growth:pipeline-forecast` when growth is installed, and reports "Growth Engine not installed; pipeline analysis skipped" otherwise. Ops no longer reads the CRM directly.
+- Updated README, SECURITY.md, `/diagnose`, `/setup-core`, `skills/setup/SKILL.md`, and reference templates to reflect the new ownership.
+
 ## [0.7.0] — Renamed to ops (2026-09-15)
 
 ### Changed

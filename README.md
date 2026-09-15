@@ -2,15 +2,13 @@
 
 A generic business-ops toolkit for Claude (Cowork + Claude Code).
 
-The shared-utility plugin that other plugins in the [BrightWayAI marketplace](https://github.com/BrightWayAI/nucleus) lean on. Hosts the `chief-of-staff` natural-language front door, two CRM-intelligence subagents, and the cross-cutting infrastructure commands (`/diagnose`, telemetry, schedule library). Configurable per user via `/setup-core` — works with any CRM and any brand once configured.
+The shared-utility plugin that other plugins in the [BrightWayAI marketplace](https://github.com/BrightWayAI/nucleus) lean on. Hosts the `chief-of-staff` natural-language front door and the cross-cutting infrastructure commands (`/diagnose`, telemetry, schedule library). Configurable per user via `/setup-core` — works with any CRM and any brand once configured. As of 2026-09-15, the `pipeline-analyst` and `pipeline-forecast` CRM-intelligence subagents live in the `growth` plugin — `/cos` delegates to `growth:pipeline-analyst` / `growth:pipeline-forecast` when growth is installed, and shows "Growth Engine not installed; pipeline analysis skipped" otherwise.
 
 ## What's inside
 
-### Agents (3)
+### Agents (1)
 
-- **`chief-of-staff`** — natural-language front door for the whole Nucleus stack. Loads `hot.md` + `index.md`, routes any request or role-addressed ask to the right installed command, narrates read-only work, and confirms before anything that writes, sends, or spends. Replaces the retired `nucleus-router` plugin.
-- **`pipeline-analyst`** — point-in-time CRM ranking. Scores and ranks pipeline by recency × signal strength × stage, returning a prioritized weekly action list.
-- **`pipeline-forecast`** — forward-looking revenue projection. Uses stage probabilities × deal values × historical close rates to forecast a window's revenue with sensitivity analysis (best / expected / worst / stretch), needle-mover deals, gap-to-target. Used monthly or pre-board-meeting.
+- **`chief-of-staff`** — natural-language front door for the whole Nucleus stack. Loads `hot.md` + `index.md`, routes any request or role-addressed ask to the right installed command, narrates read-only work, and confirms before anything that writes, sends, or spends. Replaces the retired `nucleus-router` plugin. Delegates CRM pipeline work to `growth:pipeline-analyst` / `growth:pipeline-forecast` when growth is installed.
 
 ### Slash commands (7)
 
@@ -33,7 +31,7 @@ Recommended: install via the [BrightWayAI marketplace](https://github.com/Bright
 
 ## First-time setup
 
-The plugin reads two shared user-level config files (created by cortex's `/setup-identity` and `/setup-voice`) before its own setup, so identity and voice questions don't get re-asked here.
+The plugin reads two shared user-level config files (created by cortex's `/setup-identity` and Comms Desk's `/setup-voice`) before its own setup, so identity and voice questions don't get re-asked here.
 
 Then run `/setup-core`. The interview captures:
 
@@ -47,10 +45,10 @@ You can re-run `/setup-core` anytime to update.
 
 ## Companion plugins
 
-This plugin is a hub — many other plugins delegate to its subagents:
+This plugin is a hub — many other plugins delegate to `/cos` and `/diagnose`:
 
-- **growth + briefing** call `pipeline-analyst` for weekly/daily prioritization.
-- **Admin + Client Success** integrate with `pipeline-analyst` to surface revenue-vs-time and engagement-vs-pipeline views.
+- **growth** owns `pipeline-analyst` / `pipeline-forecast`; briefing calls `growth:pipeline-analyst` for daily prioritization.
+- **Admin + Client Success** integrate with `growth:pipeline-analyst` to surface revenue-vs-time and engagement-vs-pipeline views.
 - All plugins benefit from `/diagnose` to verify setup state.
 - `/register-schedules` orchestrates standing schedules across the whole marketplace.
 
@@ -60,8 +58,6 @@ This plugin is a hub — many other plugins delegate to its subagents:
 .claude-plugin/plugin.json     Plugin manifest
 agents/
   chief-of-staff.md            Agent: natural-language front door (replaces nucleus-router)
-  pipeline-analyst.md          Subagent: weekly CRM pipeline ranking
-  pipeline-forecast.md         Subagent: forward-looking revenue projection
 commands/
   cos.md                       Invoke the chief-of-staff agent
   setup-core.md                Interview and config writer

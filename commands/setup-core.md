@@ -71,7 +71,7 @@ Ask one section at a time. After each section, summarize what you heard and ask 
 ### Section 2 — CRM context
 
 - Which CRM do you use? (HubSpot / Pipedrive / Salesforce / Attio / Affinity / other / "I don't have one")
-- If "I don't have one" → note that pipeline-analyst won't be useful until they connect one. Skip the rest of this section.
+- If "I don't have one" → note that growth's pipeline-analyst won't be useful until they connect one. Skip the rest of this section.
 - What are your pipeline stages, in order from earliest to latest? (e.g., "Lead, Qualified, Demo, Proposal, Negotiation, Closed Won")
 - Which stages do you weight most heavily for prioritization? (Usually the late-stage ones — Proposal, Negotiation, etc.)
 - What does "good" pipeline activity look like for you? (e.g., "two-way email exchange in last 14 days," "demo booked," "proposal sent within 7 days of qualification")
@@ -134,7 +134,7 @@ _Last updated: [date]_
 
 After writing, summarize what was saved (one short paragraph) and offer a concrete next step:
 
-- If CRM is configured → "Ask for a pipeline review; ops will use `pipeline-analyst` read-only."
+- If CRM is configured → "Ask for a pipeline review; growth will use `pipeline-analyst` read-only (growth must be installed)."
 - If brand is configured → "Try `/review-deliverable [path]` on a recent draft."
 - If both → both above, plus "Or just keep working — both will use this context automatically."
 

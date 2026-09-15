@@ -2,10 +2,9 @@
 
 ## What this plugin does with your data
 
-Ops (Chief of Staff) is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-forecast` subagents (CRM intelligence), `/diagnose` (ecosystem health), telemetry (`/log-agent-run`, `/agent-metrics`), and the schedule library (`/register-schedules`).
+Ops (Chief of Staff) is the shared toolkit plugin: hosts the `chief-of-staff` agent (`/cos`), `/diagnose` (ecosystem health), telemetry (`/log-agent-run`, `/agent-metrics`), and the schedule library (`/register-schedules`). As of 2026-09-15, the `pipeline-analyst` and `pipeline-forecast` CRM subagents live in the `growth` plugin; `/cos` delegates to them there when growth is installed, and shows "Growth Engine not installed; pipeline analysis skipped" otherwise.
 
 **Reads:**
-- **CRM** — for `pipeline-analyst` and `pipeline-forecast` subagents (deals, contacts, pipeline stages, owners, custom properties).
 - **Plugin references** — immutable templates and schemas in `references/`.
 - **Agent log** — `~/.brightway-state/agent-log.jsonl` (read-only by `/agent-metrics`).
 - **Shared private profile** — `<config-root>/memory/me/identity.md` (read-only).
@@ -18,7 +17,7 @@ Ops (Chief of Staff) is the shared toolkit plugin: hosts `pipeline-analyst` and 
 - **Cowork scheduled tasks** — `/register-schedules` registers entries with Cowork's scheduled-tasks system, with explicit user confirmation per registration.
 
 **Does not:**
-- **Modify the CRM.** Pipeline subagents are read-only.
+- **Access the CRM directly.** Pipeline subagents (read-only) now live in the `growth` plugin.
 - **Auto-register schedules.** Always shows the list and waits for "y" before any registration.
 - **Modify the agent log.** Append-only by design; `/agent-metrics` is strictly read-only.
 - **Log message content or sensitive data** — the agent-log captures only meta-records (agent / parent skill / confidence / user action). See `references/agent-log-schema.md` for the explicit privacy guidance.
@@ -33,7 +32,7 @@ Ops (Chief of Staff) is the shared toolkit plugin: hosts `pipeline-analyst` and 
 
 ## What gets sent off your machine
 
-- Whatever your authorized CRM connector sends when `pipeline-analyst` / `pipeline-forecast` invoke it.
+- Nothing CRM-related — this plugin no longer talks to the CRM directly (see the `growth` plugin's `pipeline-analyst` / `pipeline-forecast` for that).
 - The agent log never leaves your machine — it's a local observability file.
 
 ## Supported versions

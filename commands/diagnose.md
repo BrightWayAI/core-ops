@@ -25,7 +25,7 @@ If missing or incomplete: ✗ → "Run `/setup-identity` (cortex) to capture nam
 - **File exists?**
 - **Has voice descriptors, banned phrases, sign-off, hook patterns**?
 
-If missing: ✗ → "Run `/setup-voice` (cortex) to capture writing voice once. Every drafting plugin reads it."
+If missing: ✗ → "Run `/setup-voice` (comms) to capture writing voice once. Every drafting plugin reads it."
 
 ### 1C — Cortex memory (`<config-root>/memory/DASHBOARD.md`)
 - **File exists?**
@@ -119,8 +119,8 @@ Each subagent is registered in Claude's `subagent_type` enum when its plugin is 
 | `memory-librarian` | cortex | "Try `/search` with a broad query — does it route to memory-librarian?" |
 | `note-taker` | cortex | "Used by `/listen`; unavailable source modes are disclosed." |
 | `relationships-director` | growth | "Used for ranking and single-contact research." |
-| `pipeline-analyst` | ops | "Available to growth, briefing, clients, and pipeline reviews." |
-| `pipeline-forecast` | ops | "Used for monthly or explicit forecasts." |
+| `pipeline-analyst` | growth | "Available to growth, briefing, clients, and pipeline reviews." |
+| `pipeline-forecast` | growth | "Used for monthly or explicit forecasts." |
 | `news-curator` (agent) | research | "Used by `/ai-roundup`." |
 | `post-assembler` | research | "Used by `/ai-roundup`." |
 | `alignment-scanner` | alignment | "Used by Slack scan, pulse, report, and risk updates." |

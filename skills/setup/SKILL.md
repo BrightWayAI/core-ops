@@ -25,6 +25,6 @@ See `commands/setup-core.md` for the full interview workflow.
 
 ## Quick path
 
-If the user just wants to skip the interview and use defaults: write a minimal `<config-root>/plugins/ops.user-context.md` with placeholders, note that `/pipeline-analyst` and `/review-deliverable` will work in degraded mode (default scoring weights, generic brand checks), and tell them to re-run `/setup-core` whenever they're ready.
+If the user just wants to skip the interview and use defaults: write a minimal `<config-root>/plugins/ops.user-context.md` with placeholders, note that growth's `pipeline-analyst` and clients' `/review-deliverable` will work in degraded mode (default scoring weights, generic brand checks), and tell them to re-run `/setup-core` whenever they're ready.
 
 Don't do this silently — only on explicit request. The interview is short and the agents are noticeably better with real context.

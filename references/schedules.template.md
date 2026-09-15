@@ -14,7 +14,7 @@ customize the user-owned copy. The installed plugin directory is read-only at ru
 | weekly-client-status | Friday 14:00 | `/client-status` | clients | self | Produces reviewable client-status drafts; never sends. |
 | weekly-research-gaps | Saturday 09:00 | `/research-gaps` | cortex | self | Stages cited memory-gap proposals for review. |
 | monthly-invoices | 1st of month 09:00 | `/generate-invoices` | admin | self | Generates invoice drafts for the prior month; never sends. |
-| monthly-pipeline-forecast | 1st of month 10:00 | pipeline forecast | ops | self | Produces a read-only forecast and gap-to-target analysis. |
+| monthly-pipeline-forecast | 1st of month 10:00 | `growth:pipeline-forecast` | growth | self | Produces a read-only forecast and gap-to-target analysis. |
 | monthly-cleanup | 1st of month 17:00 | `/cleanup` | cortex | self | Audits memory health; destructive actions remain confirmation-gated. |
 
 `/end-day` is intentionally omitted from the default standing schedules. It remains

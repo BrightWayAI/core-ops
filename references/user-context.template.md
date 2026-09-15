@@ -13,7 +13,7 @@ _Last updated: [filled by setup]_
 ## CRM
 - **Tool:** [HubSpot / Pipedrive / Salesforce / Attio / Affinity / other / none]
 - **Stages (ordered):** [e.g., Lead, Qualified, Demo, Proposal, Negotiation, Closed Won]
-- **Weighted stages:** [stages that should rank higher in pipeline-analyst]
+- **Weighted stages:** [stages that should rank higher in growth's pipeline-analyst]
 - **Definition of "good":** [what "good" pipeline activity looks like for you]
 - **Excluded:** [stages or contact types to ignore]
 
