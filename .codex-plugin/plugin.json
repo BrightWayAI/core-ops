@@ -1,6 +1,6 @@
 {
   "name": "core-ops",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "Analyze CRM pipeline, review deliverables, inspect Nucleus health, record agent metrics, and register schedules when the host supports them.",
   "author": {
     "name": "BrightWay AI",

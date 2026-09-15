@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.4.0] — Live connector certification (2026-09-15)
+
+### Added
+- `/test-connectors` and its matching skill. The workflow performs real, bounded,
+  read-only calls against authorized calendar, mail, CRM, Slack, Drive, contact
+  enrichment, and transcript connectors.
+- Metadata-only JSON evidence compatible with Nucleus's deterministic connector-report
+  validator and coordinated release gate.
+- Explicit cross-host certification: Claude and ChatGPT runs remain separate because
+  connector authorization and tool schemas are host-specific.
+
 All notable changes to core-ops are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
