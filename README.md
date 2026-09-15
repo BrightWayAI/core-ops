@@ -91,7 +91,7 @@ references/
 <!-- OPENAI-SUPPORT:START -->
 ## ChatGPT and Codex
 
-Ops (Chief of Staff) ships as a native OpenAI plugin as well as a Claude plugin. In
+Chief of Staff ships as a native OpenAI plugin as well as a Claude plugin. In
 ChatGPT desktop Local Work, enable **Chief of Staff** and ask naturally or mention
 `@Chief of Staff`. In Codex, use natural language or the namespaced skills exposed
 by the plugin. Claude slash-command names in this README remain workflow aliases.
