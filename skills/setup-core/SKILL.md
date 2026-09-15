@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: setup-core
 description: "Configure core-ops for your CRM, brand, and company context via a short interview. Writes results to `<config-root>/plugins/core-ops.user-context.md` (where `<config-root>` is the folder you choose during first-time setup, stored at `~/Documents/.claude-plugin-config-root`). Re-run anytime to update."
 ---

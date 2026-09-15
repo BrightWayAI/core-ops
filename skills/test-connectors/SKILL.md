@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: test-connectors
 description: Run real, bounded, read-only connector integration probes and produce a privacy-safe Nucleus release report. Use when the user asks to test connectors, verify integrations, certify a release, run live connector smoke tests, or prove calendar, mail, CRM, Slack, Drive, enrichment, or transcript access works.
 ---

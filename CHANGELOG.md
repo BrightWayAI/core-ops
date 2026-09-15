@@ -1,5 +1,22 @@
 # Changelog
 
+All notable changes to core-ops are documented here.
+
+Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
+
+## [0.6.1] — Skill auto-invocation audit (2026-09-15)
+
+Nucleus Operating Model Refactor Phase 3 step 3.7. Ritual and side-effecting
+skills marked `disable-model-invocation: true` so they only run on explicit
+invocation, not loose natural-language matching — the model can still be
+asked to run them by name. Read-mostly, low-stakes, or high-frequency
+conversational skills are left auto-invocable. Marketplace-wide this brings
+model-invocable skills from ~81 to 27, under the ≤30 target audited with
+`/skill-doctor`.
+
+### Changed
+- Marked `disable-model-invocation: true` on: `log-agent-run`, `register-schedules`, `setup`, `setup-core`, `test-connectors`.
+
 ## [0.6.0] — chief-of-staff agent + /cos, nucleus-router retired (2026-09-15)
 
 Nucleus Operating Model Refactor Phase 3 step 3.1. Adds the natural-language
@@ -74,10 +91,6 @@ Nucleus Operating Model Refactor Phase 3 step 3.3. `project-setup` renamed to
   validator and coordinated release gate.
 - Explicit cross-host certification: Claude and ChatGPT runs remain separate because
   connector authorization and tool schemas are host-specific.
-
-All notable changes to core-ops are documented here.
-
-Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
 ## [0.3.3] — OpenAI host adapter (2026-09-14)
 

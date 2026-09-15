@@ -1,6 +1,6 @@
 {
   "name": "core-ops",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Natural-language chief-of-staff front door, CRM pipeline analysis, Nucleus health diagnostics, agent metrics, and schedule registration when the host supports them. Deliverable QA moved to delivery, 2026-09-15.",
   "author": {
     "name": "BrightWay AI",

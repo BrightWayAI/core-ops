@@ -1,4 +1,5 @@
 ---
+disable-model-invocation: true
 name: setup
 description: Configure core-ops for your CRM, brand, and company context. Auto-fires on "set up core-ops", "configure pipeline analysis", "set up deliverable review", "/setup-core", or any phrase about getting core-ops ready to use. Also fires when another core-ops skill or agent reports that user-context.md is missing or empty.
 ---
