@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.2] — Diagnose reports memory cap violations (2026-09-15)
+
+### Added
+- `/diagnose` Step 1E — reports cortex's `check-caps` output as a health line
+  (`Memory caps: clean` or `Memory caps: N FAIL, M WARN`). A FAIL is treated
+  as a ✗, since it means `/recall`'s default load boundary is broken for at
+  least one node. Part of the Nucleus Operating Model Refactor, Phase 2 step
+  2.3.
+
 ## [0.4.1] — Instantiate schedule library (2026-09-15)
 
 ### Added

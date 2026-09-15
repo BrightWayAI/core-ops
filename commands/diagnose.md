@@ -47,6 +47,14 @@ Versioned memory powers `/morning`'s overnight-diff review and rollback safety (
 
 Surface all of the above as a single `Memory-as-git: <enabled/disabled> · last commit <date> · <clean/N dirty> · <local-only | remote: pushed/N behind>` line in the Step 5 checklist.
 
+### 1E — Memory cap violations (v4.16+, Nucleus Operating Model Refactor Phase 2 step 2.3)
+
+```
+python3 scripts/cortex_cli.py check-caps --memory-root <config-root>/memory
+```
+
+(This is a claude-cortex script — resolve its path relative to the cortex plugin, same pattern as any other cross-plugin script call.) Read-only, deterministic — same check `/reindex` and `/cleanup` Section M run. Report as a single line: `Memory caps: clean` or `Memory caps: <N> FAIL, <M> WARN — run /cleanup for detail`. A FAIL here means `/recall`'s default load boundary (< 4K tokens per node) is broken for at least one node — treat as a ✗ in Step 5, not just informational.
+
 ---
 
 ## Step 2 — Check plugin setup state
