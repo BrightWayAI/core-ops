@@ -1,0 +1,36 @@
+{
+  "name": "core-ops",
+  "version": "0.3.3",
+  "description": "Analyze CRM pipeline, review deliverables, inspect Nucleus health, record agent metrics, and register schedules when the host supports them.",
+  "author": {
+    "name": "BrightWay AI",
+    "url": "https://brightwayai.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/BrightWayAI/core-ops",
+  "repository": "https://github.com/BrightWayAI/core-ops",
+  "keywords": [
+    "nucleus",
+    "chatgpt",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Core Ops",
+    "shortDescription": "Run pipeline, delivery QA, diagnostics, and stack operations",
+    "longDescription": "Analyze CRM pipeline, review deliverables, inspect Nucleus health, record agent metrics, and register schedules when the host supports them.",
+    "developerName": "BrightWay AI",
+    "category": "Business",
+    "capabilities": [
+      "Read",
+      "Write",
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/BrightWayAI/core-ops",
+    "defaultPrompt": [
+      "Analyze my pipeline.",
+      "Review this client deliverable.",
+      "Diagnose my Nucleus setup."
+    ]
+  }
+}

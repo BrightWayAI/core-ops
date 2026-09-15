@@ -3,6 +3,16 @@ name: diagnose
 description: Audit the user's plugin ecosystem health — shared config files, plugin setup completeness, subagent availability, connector wiring. Auto-fires on "/diagnose", "is my setup working", "audit my plugins", "check my plugin health", "something feels broken with [plugin]", "plugins aren't behaving", "verify my setup", or when the user reports unexpected plugin behavior. Produces a green/red checklist with specific fix instructions.
 ---
 
+<!-- OPENAI-ADAPTER:START -->
+## OpenAI host binding
+
+Before acting, read `../../references/openai-portability.md`. That file translates
+host-specific tools, agents, artifacts, scheduling, connectors, and config-root
+access for ChatGPT and Codex. It overrides concrete Claude/Cowork tool names only;
+the workflow, safety gates, and output contract in this skill remain canonical.
+<!-- OPENAI-ADAPTER:END -->
+
+
 See `commands/diagnose.md` for the full diagnostic workflow.
 
 ## When this skill fires

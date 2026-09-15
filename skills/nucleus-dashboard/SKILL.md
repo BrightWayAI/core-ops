@@ -3,6 +3,16 @@ name: nucleus-dashboard
 description: Rich visual dashboard of your Nucleus stack — installed plugins, this week's activity, cortex memory health, outreach pipeline, time + invoicing. Renders as a live Cowork HTML artifact you can keep open and refresh, or as a markdown snapshot in Claude Code. Auto-fires on "/nucleus-dashboard", "show my dashboard", "open my nucleus dashboard", "weekly view", "what's my stack doing", or any phrase asking for the visual stack overview. Sibling to /nucleus-status (terse text) and /diagnose (troubleshooting).
 ---
 
+<!-- OPENAI-ADAPTER:START -->
+## OpenAI host binding
+
+Before acting, read `../../references/openai-portability.md`. That file translates
+host-specific tools, agents, artifacts, scheduling, connectors, and config-root
+access for ChatGPT and Codex. It overrides concrete Claude/Cowork tool names only;
+the workflow, safety gates, and output contract in this skill remain canonical.
+<!-- OPENAI-ADAPTER:END -->
+
+
 See `commands/nucleus-dashboard.md` for the full workflow.
 
 ## When this skill fires

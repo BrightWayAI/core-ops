@@ -3,6 +3,16 @@ name: setup
 description: Configure core-ops for your CRM, brand, and company context. Auto-fires on "set up core-ops", "configure pipeline analysis", "set up deliverable review", "/setup-core", or any phrase about getting core-ops ready to use. Also fires when another core-ops skill or agent reports that user-context.md is missing or empty.
 ---
 
+<!-- OPENAI-ADAPTER:START -->
+## OpenAI host binding
+
+Before acting, read `../../references/openai-portability.md`. That file translates
+host-specific tools, agents, artifacts, scheduling, connectors, and config-root
+access for ChatGPT and Codex. It overrides concrete Claude/Cowork tool names only;
+the workflow, safety gates, and output contract in this skill remain canonical.
+<!-- OPENAI-ADAPTER:END -->
+
+
 See `commands/setup-core.md` for the full interview workflow.
 
 ## When this skill fires automatically

@@ -3,6 +3,16 @@ name: review-deliverable
 description: Run a structured QA pass on a client deliverable before you ship. Auto-fires on "/review-deliverable", "review this deck", "QA this deliverable", "second pair of eyes on", "is this ready to ship", "check this against the brief", "review my one-pager", or similar. Loads brand context from user-context.md and produces specific, location-tagged findings — not vague feedback.
 ---
 
+<!-- OPENAI-ADAPTER:START -->
+## OpenAI host binding
+
+Before acting, read `../../references/openai-portability.md`. That file translates
+host-specific tools, agents, artifacts, scheduling, connectors, and config-root
+access for ChatGPT and Codex. It overrides concrete Claude/Cowork tool names only;
+the workflow, safety gates, and output contract in this skill remain canonical.
+<!-- OPENAI-ADAPTER:END -->
+
+
 See `commands/review-deliverable.md` for the full review workflow.
 
 ## When this skill fires automatically

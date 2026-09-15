@@ -87,6 +87,26 @@ references/
 - **File access** for Deliverable Reviewer — Drive connector or local path.
 - **Cowork's scheduled-tasks tool** — required for `/register-schedules` to register schedules.
 
+<!-- OPENAI-SUPPORT:START -->
+## ChatGPT and Codex
+
+Core Ops ships as a native OpenAI plugin as well as a Claude plugin. In
+ChatGPT desktop Local Work, enable **Core Ops** and ask naturally or mention
+`@Core Ops`. In Codex, use natural language or the namespaced skills exposed
+by the plugin. Claude slash-command names in this README remain workflow aliases.
+
+All hosts resolve the same `<config-root>` used by Cortex, so Claude, ChatGPT desktop,
+and Codex can share identity, voice, memory, and per-plugin settings without copying
+them. The installed plugin directory is read-only at runtime. See
+[`references/openai-portability.md`](references/openai-portability.md) for capability
+mapping, connector checks, permissions, and honest degraded behavior.
+
+Import the full catalog from
+[`BrightWayAI/nucleus`](https://github.com/BrightWayAI/nucleus); Nucleus is the master
+marketplace, while each plugin remains independently installable.
+<!-- OPENAI-SUPPORT:END -->
+
+
 ## License
 
 MIT. See `LICENSE`.

@@ -3,6 +3,16 @@ name: nucleus-status
 description: At-a-glance Nucleus stack snapshot — installed plugins, setup state, connector availability, recent activity, memory health, anything broken. Terse text output in chat, scannable in 10 seconds. Auto-fires on "/nucleus-status", "stack status", "is everything wired up", "show my nucleus", "check my plugins", "what's installed", or any phrase asking for a quick health snapshot. For a richer visual surface use `/nucleus-dashboard`; for troubleshooting use `/diagnose`.
 ---
 
+<!-- OPENAI-ADAPTER:START -->
+## OpenAI host binding
+
+Before acting, read `../../references/openai-portability.md`. That file translates
+host-specific tools, agents, artifacts, scheduling, connectors, and config-root
+access for ChatGPT and Codex. It overrides concrete Claude/Cowork tool names only;
+the workflow, safety gates, and output contract in this skill remain canonical.
+<!-- OPENAI-ADAPTER:END -->
+
+
 See `commands/nucleus-status.md` for the full output format and detection logic.
 
 ## When this skill fires
