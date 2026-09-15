@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.1] — Instantiate schedule library (2026-09-15)
+
+### Added
+- `references/schedules.md`, instantiated from the template for the first time (zero
+  schedules had ever been registered). Populates `nightly-listen` only, with a
+  run-window guard and the exact registration prompt for `/register-schedules` to hand
+  to Cowork. Part of the Nucleus Operating Model Refactor, Phase 1 step 1.4.
+
 ## [0.4.0] — Live connector certification (2026-09-15)
 
 ### Added
