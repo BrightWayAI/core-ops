@@ -4,6 +4,12 @@ All notable changes to ops (formerly core-ops) are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.11.0] — Phase 3 consistency fixes (2026-09-15)
+
+### Changed
+- `references/schedules.template.md` reduced to exactly three registrable schedules: `nightly-listen` (required), `weekly-end-week` (optional), `weekly-roundup` (optional, relevant only when `research` is installed). Added a Required/Optional column to the schedule table.
+- `commands/register-schedules.md` Step 0 now registers only `nightly-listen` by default, mentions `weekly-end-week`/`weekly-roundup` as available-but-not-auto-registered, and tells the user up front that the host must be awake at run time and that first-run tool-use approvals should be granted with "always allow."
+
 ## [0.10.0] — `/setup-voice` ownership moves to Comms Desk (2026-09-15)
 
 ### Changed

@@ -22,12 +22,24 @@ definition file or installed plugin directory.
 
 ## Step 0 — Resolve and initialize
 
+Before doing anything else, tell the user two things: (1) the computer must be awake
+(not asleep) at the scheduled run time for an unattended task to fire, and (2) the
+first unattended run will prompt for tool-use approvals — the user should approve
+each with "always allow" so later runs don't stall waiting on a prompt nobody is
+watching.
+
 Resolve `<config-root>` using the shared precedence chain: explicit override,
-`CORTEX_CONFIG_ROOT`, `~/.cortex/config-root`, legacy pointer, then default.
+`CORTEX_CONFIG_ROOT`, `~/.cortex/config-root` (primary), legacy pointer
+`~/Documents/.claude-plugin-config-root` (fallback), then default.
 
 If the definitions file is missing, preview the bundled starter and offer to copy it
 to the definitions path. If the user declines, return the path and stop. Never edit
 `references/schedules.template.md` or `references/schedules.md` at runtime.
+
+By default, only register `nightly-listen` — it is the one required schedule.
+`weekly-end-week` and `weekly-roundup` (the latter only if `research` is installed)
+are available in the starter but not auto-registered; mention them and offer to
+register either if the user wants them.
 
 Detect `scheduler.register`. If unavailable, validate and return the definitions for
 manual setup without claiming registration.
