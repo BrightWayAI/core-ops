@@ -37,12 +37,12 @@ tool identifier. Do not infer availability from setup files or the user's memory
 
 | Connector ID | Required live probe | Used by |
 |---|---|---|
-| `calendar` | List at most one event in the approved narrow window | daily-brief, time-tracking, client-status, relationships |
-| `mail` | Search the approved test mailbox or marker with limit 1 | daily-brief, lead-engine, client-status, referral-engine, relationships |
-| `crm` | Read the designated sandbox record or run an approved bounded empty query | core-ops, lead-engine, client-status, referral-engine, relationships |
+| `calendar` | List at most one event in the approved narrow window | daily-brief, time-tracking, delivery, relationships |
+| `mail` | Search the approved test mailbox or marker with limit 1 | daily-brief, delivery, relationships |
+| `crm` | Read the designated sandbox record or run an approved bounded empty query | core-ops, delivery, relationships |
 | `slack` | Search the designated test channel with a bounded query | weekly-alignment, daily-brief |
-| `drive` | List at most one item from the designated test folder | project-setup, daily-brief, client-status |
-| `contact-enrichment` | Look up the designated synthetic company/contact | lead-engine, relationships |
+| `drive` | List at most one item from the designated test folder | delivery, daily-brief |
+| `contact-enrichment` | Look up the designated synthetic company/contact | relationships |
 | `transcripts` | List at most one record from the designated test source | cortex |
 
 If no compatible read tool exists, record `skip` with error code

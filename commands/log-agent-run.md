@@ -72,7 +72,7 @@ The simplest pattern: the parent skill writes a single combined entry once the u
 ## When NOT to log
 
 - Trivial agent calls. If you're invoking memory-librarian for routine `/search` queries, don't log every one — only the ones where confidence was unexpectedly Low or the result was surprising.
-- High-volume cron runs. If transcript-reviewer runs every Friday, log a once-a-week entry, not one per meeting.
+- High-volume scheduled runs. If note-taker processes many meetings, log one run receipt per scheduled run, not one entry per meeting.
 
 A sparse, qualitative log beats a dense, mechanical one.
 

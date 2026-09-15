@@ -1,5 +1,5 @@
 ---
-description: Configure core-ops for your CRM, brand, and company context via a short interview. Writes results to `<config-root>/plugins/core-ops.user-context.md` (where `<config-root>` is the folder you choose during first-time setup, stored at `~/Documents/.claude-plugin-config-root`). Re-run anytime to update.
+description: Configure core-ops for your CRM, brand, and company context via a short interview. Writes results to `<config-root>/plugins/core-ops.user-context.md`, using the shared vendor-neutral config-root resolver. Re-run anytime to update.
 ---
 
 # /setup-core
@@ -10,11 +10,13 @@ Short interview that captures the context the core-ops agents and commands need 
 
 ## Step 0 — Resolve plugin config root
 
-Per-plugin config in this marketplace lives under a user-chosen folder, recorded at `~/Documents/.claude-plugin-config-root` (a single-line text file in the user's home directory). Resolve it before doing anything else.
+Per-plugin config lives beneath the shared `<config-root>`. Resolve it using the
+standard precedence chain before doing anything else.
 
 ### A — Try the pointer
 
-Ensure access to `~/Documents`. In Cowork, call `request_cowork_directory(~/Documents)` once if not already granted. In Claude Code (or any environment with direct filesystem access), no mount is needed. Then read `~/Documents/.claude-plugin-config-root`.
+Resolve explicit override → `CORTEX_CONFIG_ROOT` → `~/.cortex/config-root` →
+legacy pointer → default. Request access only to the resolved directory.
 
 - **Pointer exists**: read line 1 → that's the config root path. Ensure access to `<config-root>`. If running in Cowork and the folder isn't already mounted in this session, call `request_cowork_directory(<config-root>)`. If running in Claude Code or another environment with direct filesystem access, no mount call is needed. Skip to section C.
 - **Pointer missing**: continue to section B.
@@ -29,8 +31,9 @@ Once the user provides the path:
 
 1. Ensure access to `<path>`. If running in Cowork and the folder isn't already mounted in this session, call `request_cowork_directory(<path>)`. If running in Claude Code or another environment with direct filesystem access, no mount call is needed — proceed to read or write the file.
 2. Create `<path>/plugins/` if it doesn't exist.
-3. Write the absolute path to `~/Documents/.claude-plugin-config-root`.
-4. Confirm: "Saved. All marketplace plugin configs will live under `<path>` from now on. You can change this later by editing `~/Documents/.claude-plugin-config-root` directly."
+3. After confirmation, write the absolute path to `~/.cortex/config-root`; never
+   overwrite a pointer to a different root without a second explicit confirmation.
+4. Confirm: "Saved. Nucleus plugin state will live under `<path>`."
 
 ### C — Read shared identity
 
@@ -131,7 +134,7 @@ _Last updated: [date]_
 
 After writing, summarize what was saved (one short paragraph) and offer a concrete next step:
 
-- If CRM is configured → "Try `/pipeline-analyst` (via `weekly-outreach` or directly via the Task tool) to see your prioritized list."
+- If CRM is configured → "Ask for a pipeline review; core-ops will use `pipeline-analyst` read-only."
 - If brand is configured → "Try `/review-deliverable [path]` on a recent draft."
 - If both → both above, plus "Or just keep working — both will use this context automatically."
 

@@ -1,118 +1,150 @@
 ---
-description: Read the schedule library at references/schedules.md and register each schedule with Cowork's scheduled-tasks tool. Useful when setting up a new machine, recovering after a Cowork reinstall, or onboarding to the marketplace's standing schedules. Don't run this casually — it creates real scheduled tasks.
+description: Register user-owned schedule definitions from the shared config root with an available host scheduler. Keeps immutable plugin defaults separate from per-host registration IDs and run receipts. Useful on first setup, a new machine, or after a scheduler reinstall. Creates real scheduled tasks and always requires confirmation.
 ---
 
 # /register-schedules
 
-Bulk-register the standing schedules documented in `references/schedules.md` with Cowork's scheduled-tasks system. Replaces the manual "rerun every set-up step on the new machine" routine.
+Provision standing schedules from user-owned definitions. The installed plugin is
+read-only at runtime: bundled references are defaults, never mutable state.
 
----
+## State contract
 
-## Step 0 — Preflight
+- Definitions: `<config-root>/plugins/core-ops/schedules.md`
+- Bundled starter: `references/schedules.template.md`
+- Per-host registration state:
+  `<config-root>/plugins/core-ops/schedule-registrations/<host-id>.json`
+- Metadata-only run receipts:
+  `<config-root>/plugins/core-ops/schedule-runs/<schedule>/<run-id>.json`
 
-Verify `references/schedules.md` exists in this plugin (or wherever the user-context points). If missing, create from `references/schedules.template.md` and stop — tell user to populate first.
+`<host-id>` is a stable, non-secret identifier such as
+`cowork-macbook-pro` or `codex-desktop`. Never put host-specific IDs in the
+definition file or installed plugin directory.
 
-Verify the user has the scheduled-tasks tool available in Cowork. If not, the registration will fail; surface the dependency and stop.
+## Step 0 — Resolve and initialize
 
----
+Resolve `<config-root>` using the shared precedence chain: explicit override,
+`CORTEX_CONFIG_ROOT`, `~/.cortex/config-root`, legacy pointer, then default.
 
-## Step 1 — Read the schedule library
+If the definitions file is missing, preview the bundled starter and offer to copy it
+to the definitions path. If the user declines, return the path and stop. Never edit
+`references/schedules.template.md` or `references/schedules.md` at runtime.
 
-Parse `references/schedules.md`. Each entry is a markdown table row or section with these fields:
+Detect `scheduler.register`. If unavailable, validate and return the definitions for
+manual setup without claiming registration.
 
-- **Name** — short identifier (kebab-case)
-- **Cron** — cron expression (or "every N min" / "daily 9am" / similar)
-- **Action** — the slash command or skill to invoke (e.g., `/end-day`, `/track-time`, `/referrals`)
-- **Plugin dependency** — which plugin owns the action (so the user knows what must be installed)
-- **Owner** — usually "self" but documented for clarity
-- **Notes** — why this schedule exists, edge cases
+## Step 1 — Validate definitions and dependencies
 
-Surface what's about to be registered:
+Parse each enabled row:
 
+- `name` — unique kebab-case identifier
+- `schedule` — cron or host-readable schedule
+- `action` — installed workflow to invoke
+- `plugin` — owning plugin
+- `owner` — normally `self`
+- `notes` — guardrails and expected output
+
+Reject duplicate names, missing fields, retired plugins/actions, or dependencies that
+are not installed. A missing optional plugin skips that row; it does not invalidate
+the rest of the library.
+
+Compute a definition fingerprint from normalized `name + schedule + action + plugin`.
+This lets registration state detect changed definitions without coupling state to
+Markdown formatting.
+
+## Step 2 — Reconcile with this host
+
+Read this host's registration-state file if present. When the scheduler can list
+existing tasks, reconcile against live state; live state wins over the cache.
+
+Classify each definition:
+
+- `new` — no matching live task or state record
+- `current` — live task and fingerprint match
+- `changed` — name matches but fingerprint differs
+- `missing-live` — cached ID exists but scheduler no longer has it
+- `unavailable` — dependency or scheduler capability missing
+
+Never skip solely because a cached ID exists. Never register a duplicate solely
+because a state file is absent.
+
+## Step 3 — Preview and confirm
+
+Show new, changed, skipped, and current schedules, including exact action and timing.
+Ask once for explicit confirmation before any create/update call. Changed schedules
+must state whether the host will update in place or replace the old task.
+
+## Step 4 — Register and persist state
+
+For each confirmed `new`, `changed`, or `missing-live` entry:
+
+1. Register through the active host scheduler.
+2. Capture returned ID and scheduler name.
+3. Atomically update only this host's registration-state JSON.
+4. Continue after individual failures and record a sanitized error code.
+
+State schema:
+
+```json
+{
+  "schema_version": "1.0.0",
+  "host_id": "cowork-macbook-pro",
+  "scheduler": "cowork",
+  "updated_at": "2026-09-15T18:00:00-04:00",
+  "registrations": {
+    "nightly-listen": {
+      "scheduler_id": "opaque-host-id",
+      "definition_fingerprint": "sha256:...",
+      "registered_at": "2026-09-15T18:00:00-04:00",
+      "last_verified_at": "2026-09-15T18:00:00-04:00"
+    }
+  }
+}
 ```
-## Schedules to register
 
-| Name              | Cron            | Action               | Plugin       |
-|-------------------|-----------------|----------------------|--------------|
-| daily-end-day     | 0 17 * * 1-5    | /end-day             | cortex       |
-| daily-track-time  | 0 18 * * 1-5    | /track-time          | time-tracking|
-| weekly-end-week   | 0 16 * * 5      | /end-week            | cortex       |
-| ...               | ...             | ...                  | ...          |
+Write atomically. Schedule IDs are machine-specific operational metadata, not source
+configuration and not portable between hosts.
 
-[N] schedules. Proceed? (y/n)
+## Step 5 — Scheduled-run receipts
+
+Every registered prompt must request one metadata-only receipt per run. It contains:
+
+```json
+{
+  "schema_version": "1.0.0",
+  "run_id": "<host run id or UUID>",
+  "schedule": "nightly-listen",
+  "host_id": "cowork-macbook-pro",
+  "started_at": "<ISO-8601>",
+  "ended_at": "<ISO-8601>",
+  "outcome": "success|partial|skipped|failed",
+  "source_coverage": {"calendar": "read|skipped|failed"},
+  "outputs": [{"path": "<config-root-relative path>", "sha256": "..."}],
+  "error_codes": []
+}
 ```
 
----
+Receipts contain no connector payloads, messages, transcript text, credentials, or
+memory content. If the target workflow cannot write a receipt on the active host, say
+so during preview and rely on host scheduler history instead.
 
-## Step 2 — Confirm
+## Output
 
-Wait for explicit user approval. Don't auto-register. Some schedules might have changed since the last machine setup; user should confirm the list reflects current intent.
-
-If user says "modify," let them edit `references/schedules.md` and re-run.
-
----
-
-## Step 3 — Register each
-
-For each row in the confirmed list:
-- Use the scheduled-tasks tool (e.g., `mcp__scheduled-tasks__create_scheduled_task`) to register the schedule
-- Capture the returned schedule ID
-- Append it to `references/schedules.md` as a `last_registered_id` field for that row (so future runs can see what's already registered and not duplicate)
-
-If any registration fails, log the failure and continue with the rest. Surface failures at the end.
-
----
-
-## Step 4 — Output
-
-```
-## Registration complete
-
-✓ Successfully registered: [N]
-- daily-end-day (id: ...)
-- daily-track-time (id: ...)
-- ...
-
-✗ Failed: [N]
-- [name] — reason: [error]
-
-To verify: list schedules in Cowork's scheduled-tasks panel or run /list-schedules.
-To unregister: edit references/schedules.md to remove rows, then run a future /unregister-schedules command (not yet implemented — manually unregister via Cowork for now).
-```
-
----
+Report counts for current, registered, updated, skipped, and failed entries; list IDs
+only for the current host; and state where registration state and run receipts live.
+Do not claim success for rows that were merely returned as manual definitions.
 
 ## Behavior rules
 
-- **Don't duplicate.** If a schedule with the same name was already registered (per `last_registered_id` annotation in schedules.md), skip it and note "already registered."
-- **Confirm before writing.** Always show the list and wait for "y" before any registration calls.
-- **Honor the user's edits.** If `references/schedules.md` was edited recently, treat the file as canonical — don't second-guess.
-- **Surface failures cleanly.** Don't fail silently if one row errors. Continue with remaining rows.
+- Installed plugin directories are immutable at runtime.
+- Definitions are portable; registration state is per-host.
+- Live scheduler state wins over cached IDs.
+- Registration and changes always require confirmation.
+- Failures are explicit and do not prevent independent rows from continuing.
+- Removing a definition does not silently unregister its live task; surface it as an
+  orphan and ask before deletion.
 
----
+## What this is not for
 
-## Common schedules
-
-The plugin ships with a starter schedule library at `references/schedules.template.md`. Typical entries:
-
-| Schedule | Why |
-|---|---|
-| Weekday 5pm `/end-day` | Daily reflection ritual |
-| Friday 4pm `/end-week` | Weekly wrap-up |
-| Friday 4pm `/track-time` (or weekday 6pm) | Daily/weekly time logging |
-| Monday 6am `pipeline-analyst` (via wrapper skill) | Weekly pipeline ranking before the workday |
-| Friday 7am `news-curator` (via wrapper skill) | Saturday-morning roundup prep |
-| Friday 4pm `transcript-reviewer` (via wrapper skill) | Weekly commitment audit |
-| Monthly 1st `/generate-invoices` | Monthly billing |
-| Weekly Friday `/referrals` | Weekly referral digest |
-| Weekly Friday `/client-status` | Weekly client status drafts |
-
-Edit the schedule library to match your firm's rhythm.
-
----
-
-## What this is NOT for
-
-- One-off scheduled tasks. Use Cowork's scheduled-tasks panel directly.
-- Scheduling things outside the marketplace (e.g., your morning standup). Use Cowork directly.
-- Cross-machine sync. The schedule library lives in this plugin's repo, so it's already version-controlled. To sync schedules across machines: install the plugin → run `/register-schedules` → done.
+- One-off reminders or meetings.
+- External cron provisioning when the active host exposes no scheduler.
+- Automatic unregistration or destructive scheduler cleanup.

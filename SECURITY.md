@@ -6,14 +6,14 @@ Core Ops is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-fo
 
 **Reads:**
 - **CRM** — for `pipeline-analyst` and `pipeline-forecast` subagents (deals, contacts, pipeline stages, owners, custom properties).
-- **Plugin references** — `references/user-context.md` (CRM details, brand context), `references/schedules.md` (schedule library), `references/agent-log-schema.md` (documentation).
+- **Plugin references** — immutable templates and schemas in `references/`.
 - **Agent log** — `~/.brightway-state/agent-log.jsonl` (read-only by `/agent-metrics`).
-- **Shared user-level config** — `~/Documents/Claude/identity.md` (read-only).
+- **Shared private profile** — `<config-root>/memory/me/identity.md` (read-only).
 - **Cortex memory** (if installed) — for `/diagnose` to verify cortex initialization status. Read-only.
 
 **Writes:**
-- **Plugin user-context** — `references/user-context.md` (after `/setup-core`).
-- **Plugin schedules.md** — `references/schedules.md` (annotated with `last_registered_id` after `/register-schedules`).
+- **Plugin settings** — `<config-root>/plugins/core-ops.user-context.md` (after `/setup-core`).
+- **Schedule definitions/state/receipts** — `<config-root>/plugins/core-ops/`; installed references are never mutated.
 - **Agent log** — `~/.brightway-state/agent-log.jsonl` (append-only by `/log-agent-run`).
 - **Cowork scheduled tasks** — `/register-schedules` registers entries with Cowork's scheduled-tasks system, with explicit user confirmation per registration.
 
@@ -26,9 +26,10 @@ Core Ops is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-fo
 
 ## Where data lives
 
-- Plugin reference files inside the installed plugin directory.
+- Immutable plugin reference files inside the installed plugin directory.
+- User settings and schedule state under `<config-root>/plugins/core-ops/`.
 - Agent log at `~/.brightway-state/agent-log.jsonl` (your machine only; never sent off-device).
-- Shared identity (read-only) at `~/Documents/Claude/identity.md`.
+- Shared identity (read-only) at `<config-root>/memory/me/identity.md`.
 
 ## What gets sent off your machine
 

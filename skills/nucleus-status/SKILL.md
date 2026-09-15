@@ -30,7 +30,7 @@ See `commands/nucleus-status.md` for the full output format and detection logic.
 
 ## Inputs
 
-- `~/Documents/.claude-plugin-config-root` pointer file (must exist)
+- Shared config-root resolver chain (explicit override, environment, vendor pointer, legacy pointer, default)
 - `<config-root>/memory/me/identity.md`, `<config-root>/memory/me/voice.md` (existence + populated check)
 - `<config-root>/memory/DASHBOARD.md` (cortex health signal)
 - `<config-root>/plugins/*.user-context.md` (per-plugin setup state)

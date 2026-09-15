@@ -33,7 +33,7 @@ See `commands/nucleus-dashboard.md` for the full workflow.
 - `<config-root>/memory/me/identity.md`, `<config-root>/memory/me/voice.md`
 - `<config-root>/memory/` (DASHBOARD, triage-log, decay-config, scope-migration marker, person/, sampled knowledge entries)
 - `<config-root>/plugins/*.user-context.md` (per-plugin setup state)
-- `<config-root>/plugins/lead-engine.pipeline.md` + `.sent-log.md` (if lead-engine installed)
+- `<config-root>/relationships/pipeline.md` + `sent-log.md` (if relationships is installed)
 - `<config-root>/time-log.csv` (if time-tracking installed)
 - `~/.brightway-state/agent-log.jsonl` (this week's activity)
 - Runtime MCP tool list (connector detection)
@@ -54,7 +54,7 @@ Zero model calls in v1. Pure filesystem reads + template rendering. Target < 5 s
 1. **Stack overview** — installed plugins, configured/template/missing state, connector availability, last-run per skill
 2. **This week** — activity histogram, top 10 skills by run count, rusty skills (no run in 14+ days)
 3. **Cortex memory health** — entries by state (Fresh/Stale/Dormant/Cold/Demoted), person pages by state, triage decisions this week
-4. **Outreach pipeline** (if lead-engine installed) — active signals, drafts written/sent, replies, booked calls
+4. **Relationship pipeline** (if relationships is installed) — active signals, drafts written/sent, replies, booked calls
 5. **Time + invoicing** (if time-tracking installed) — hours by client, billable split, days since last invoice
 6. **Impact loop** (v1 placeholder, v1.1 ships content) — drafted→sent ratios, mining accept rate, P0 completion rate
 

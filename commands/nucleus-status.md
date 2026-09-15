@@ -18,7 +18,9 @@ This command is the terse check. No diagnostics, no walkthroughs — just a snap
 
 ## Step 0 — Resolve config root
 
-Ensure access to `~/Documents`. In Cowork, call `request_cowork_directory(~/Documents)` once if not already granted. In Claude Code (or any environment with direct filesystem access), no mount is needed. Then read `~/Documents/.claude-plugin-config-root`.
+Resolve `<config-root>` using the shared precedence chain: explicit override,
+`CORTEX_CONFIG_ROOT`, `~/.cortex/config-root`, legacy pointer, then default. Request
+filesystem access only for the resolved directory when required.
 
 - **Pointer missing** → stop with: "No plugin config root configured. Run any plugin's `/setup-*` command to bootstrap, then re-run `/nucleus-status`."
 - **Pointer exists** → read line 1 → that's `<config-root>`. Ensure access to it. Continue.
@@ -38,27 +40,22 @@ For each shared config file, capture: exists? populated? (size > 0 and contains 
 | Cortex DASHBOARD | `<config-root>/memory/DASHBOARD.md` | cortex auto-commit |
 | Decay config (v4.4+) | `<config-root>/memory/.decay-config.md` | cortex (auto-created on first /recall) |
 | Note sources (v4.3+) | `<config-root>/plugins/cortex.note-sources.md` | cortex `/setup-sources` |
-| Scope migration marker | `<config-root>/memory/.scope-migration-done` | cortex `/end-day` (one-time) |
+| Private-scope migration marker | `<config-root>/memory/.migration-scopes-v2-done` | cortex `/migrate-scopes-v2` |
 
 ### B — Installed plugins (per-plugin setup state)
 
 List the known plugin set from the marketplace catalog. For each, check whether its `user-context.md` exists at the expected path in `<config-root>/plugins/`. The set:
 
 ```
-claude-cortex        → identity.md + voice.md (no per-plugin context file)
+cortex               → memory/me/identity.md + voice.md; cortex.user-context.md optional
 core-ops             → core-ops.user-context.md
-lead-engine          → lead-engine.user-context.md
-bizdev-outreach      → bizdev-outreach.user-context.md
-weekly-outreach      → weekly-outreach.user-context.md
-referral-engine      → referral-engine.user-context.md
-news-curator         → news-curator.user-context.md
 daily-brief          → daily-brief.user-context.md
-plan-tomorrow        → plan-tomorrow.user-context.md
-project-setup        → project-setup.user-context.md
+relationships        → relationships.user-context.md
+delivery             → delivery.user-context.md + delivery-status.user-context.md
 time-tracking        → time-tracking.user-context.md
-client-status        → client-status.user-context.md
-weekly-alignment     → weekly-alignment.org-context.md
 voice                → voice.user-context.md
+news-curator         → news-curator.user-context.md
+weekly-alignment     → weekly-alignment.org-context.md
 ```
 
 Per plugin, the state is one of:
@@ -112,6 +109,13 @@ Check `<config-root>/briefs/` directory:
 - Most recent brief file name and date
 - Count of brief files in the last 30 days (rough proxy for daily-brief usage)
 
+### G — Scheduled-loop snapshot
+
+Read this host's registration state and the newest metadata-only `nightly-listen`
+receipt. Do not call connectors. Report `not configured`, `pending first run`,
+`healthy <age>`, or `stale/failed <sanitized code>`. Cached registration without a
+recent receipt is not healthy evidence.
+
 ---
 
 ## Step 2 — Render the status block
@@ -128,14 +132,13 @@ SHARED CONFIG
   ✓ memory/DASHBOARD.md  <N> active nodes
   ✓ .decay-config.md     defaults in effect
   ✓ note-sources.md      <N> sources enabled
-  ⚠ .scope-migration-done  missing — first /end-day will run the migration
+  ⚠ .migration-scopes-v2-done  missing — run /migrate-scopes-v2
 
-PLUGINS (14)
-  ✓ configured  (10): claude-cortex, core-ops, lead-engine, bizdev-outreach,
-                       weekly-outreach, referral-engine, news-curator,
-                       daily-brief, plan-tomorrow, project-setup
-  ⚠ template   (1):  voice (run /setup-style to fill in)
-  ✗ missing    (3):  time-tracking, client-status, weekly-alignment
+PLUGINS (9)
+  ✓ configured  (6): cortex, core-ops, daily-brief, relationships,
+                      delivery, news-curator
+  ⚠ template   (1): voice (run /setup-style to fill in)
+  ✗ missing    (2): time-tracking, weekly-alignment
 
 CONNECTORS
   ✓ HubSpot      ✓ Gmail         ✓ Calendar      ✓ Drive
@@ -145,8 +148,8 @@ RECENT ACTIVITY (last 7 days)
   /end-day           3 runs   last: yesterday
   /brief             3 runs   last: yesterday
   /process-brief     2 runs   last: 2d ago
-  /weekly-outreach   1 run    last: 4d ago
-  /referral-ask      1 run    last: 5d ago
+  /relationships     1 run    last: 4d ago
+  /client-status     1 run    last: 5d ago
 
 MEMORY HEALTH (v4.4)
   Active nodes:        12
@@ -157,6 +160,9 @@ MEMORY HEALTH (v4.4)
 DAILY BRIEF
   Last brief:    yesterday (2026-05-11)
   Last 30 days:  18 briefs generated
+
+SCHEDULED LOOP
+  nightly-listen: healthy · last success 9h ago · 4/4 configured sources covered
 
 NOTHING BROKEN
 ```

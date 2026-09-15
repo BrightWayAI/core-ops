@@ -12,7 +12,9 @@ Sibling to `/nucleus-status` (terse text) and `/diagnose` (troubleshooting). Thi
 
 ## Step 0 — Resolve config root + load context
 
-Ensure access to `~/Documents`. In Cowork, call `request_cowork_directory(~/Documents)` once if not already granted. In Claude Code (or any environment with direct filesystem access), no mount is needed. Then read `~/Documents/.claude-plugin-config-root`.
+Resolve `<config-root>` using the shared precedence chain: explicit override,
+`CORTEX_CONFIG_ROOT`, `~/.cortex/config-root`, legacy pointer, then default. Request
+filesystem access only for the resolved directory when the host requires it.
 
 - **Pointer missing** → stop with: "No plugin config root configured. Run any plugin's `/setup-*` command first."
 - **Pointer exists** → read line 1 → that's `<config-root>`. Ensure access to it. Continue.
@@ -52,18 +54,18 @@ If `<config-root>/memory/DASHBOARD.md` exists:
 - **Last `/rehearse` run** — from agent log or `.rehearse-skip-log.md`
 - **Triage log** — recent entries from `<config-root>/memory/triage-log.md` (last 7 days, count of commit vs. skip decisions)
 
-### Section 4: Outreach pipeline (if lead-engine installed)
+### Section 4: Relationship pipeline (if relationships is installed)
 
-If `<config-root>/plugins/lead-engine.pipeline.md` exists, parse it for:
+If `<config-root>/relationships/pipeline.md` exists, parse it for:
 
 - **Active signals** count
-- **Drafts written this week** (from `<config-root>/plugins/lead-engine.sent-log.md`)
+- **Drafts written this week** (from `<config-root>/relationships/sent-log.md`)
 - **Drafts sent this week**
 - **Drafts → sent ratio** (this week)
 - **Replies this week**
 - **Booked calls this week**
 
-Skip cleanly if lead-engine isn't installed.
+Skip cleanly if relationships isn't installed.
 
 ### Section 5: Time + invoicing (if time-tracking installed)
 

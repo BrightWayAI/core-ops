@@ -4,6 +4,13 @@ All notable changes to core-ops are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.6.4] — routing and schedule-state hardening (2026-09-15)
+
+### Changed
+- Split chief-of-staff route planning from parent-owned execution with a structured route-plan contract and narrower triggers.
+- Moved schedule definitions, per-host IDs, and metadata-only run receipts into separate user-owned config-root paths.
+- Updated status, diagnostics, dashboard, and connector ownership for the nine-plugin catalog.
+
 ## [0.6.3] — Codex adapter synchronization (2026-09-15)
 
 ### Added

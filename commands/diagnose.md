@@ -14,27 +14,27 @@ This command is part of `core-ops` because the toolkit plugin is the natural pla
 
 These are the canonical files every plugin reads. Check each:
 
-### 1A — Shared identity (`~/Documents/Claude/identity.md`)
+### 1A — Shared identity (`<config-root>/memory/me/identity.md`)
 - **File exists?**
 - **Has all required sections** (Person, Company, Primary tools, Communication defaults)?
 - **No placeholder values** (e.g., no `[your name]` left in)?
 
 If missing or incomplete: ✗ → "Run `/setup-identity` (cortex) to capture name/company/role/tools once. Every plugin reads it."
 
-### 1B — Shared voice (`~/Documents/Claude/voice.md`)
+### 1B — Shared voice (`<config-root>/memory/me/voice.md`)
 - **File exists?**
 - **Has voice descriptors, banned phrases, sign-off, hook patterns**?
 
 If missing: ✗ → "Run `/setup-voice` (cortex) to capture writing voice once. Every drafting plugin reads it."
 
-### 1C — Cortex memory (`~/Documents/Claude/memory/DASHBOARD.md`)
+### 1C — Cortex memory (`<config-root>/memory/DASHBOARD.md`)
 - **File exists?**
 - **Has at least one node**?
-- **`user.md` exists at `~/Documents/Claude/memory/user.md`**?
+- **`memory/me/user.md` exists**?
 
 If missing: ✗ → "Cortex hasn't been initialized. Either install claude-cortex or, if installed, restart Cowork to trigger initialization."
 
-### 1D — Memory-as-git (`~/Documents/Claude/memory/.git/`)
+### 1D — Memory-as-git (`<config-root>/memory/.git/`)
 
 Versioned memory powers `/morning`'s overnight-diff review and rollback safety (cortex v4.12.0+). Report a one-line health status (this is informational — memory-as-git is optional):
 
@@ -55,6 +55,28 @@ python3 scripts/cortex_cli.py check-caps --memory-root <config-root>/memory
 
 (This is a claude-cortex script — resolve its path relative to the cortex plugin, same pattern as any other cross-plugin script call.) Read-only, deterministic — same check `/reindex` and `/cleanup` Section M run. Report as a single line: `Memory caps: clean` or `Memory caps: <N> FAIL, <M> WARN — run /cleanup for detail`. A FAIL here means `/recall`'s default load boundary (< 4K tokens per node) is broken for at least one node — treat as a ✗ in Step 5, not just informational.
 
+### 1F — Scheduled-loop health
+
+Scheduling is optional, but a configured loop must be observable:
+
+- Definitions: `<config-root>/plugins/core-ops/schedules.md`
+- This host's registration record:
+  `<config-root>/plugins/core-ops/schedule-registrations/<host-id>.json`
+- Receipts: `<config-root>/plugins/core-ops/schedule-runs/<schedule>/`
+
+If the scheduler can list tasks, reconcile live state; live state wins over cached
+IDs. For `nightly-listen`, report one of:
+
+- `not configured` — informational, not an error;
+- `defined, not registered` — warning with `/register-schedules`;
+- `registered, never observed` — warning until the first scheduled window passes;
+- `healthy` — most recent success/partial receipt is within 36 hours;
+- `stale/failed` — red when two expected windows passed without a receipt, or the
+  latest receipt failed. Show sanitized error codes and the host scheduler history
+  location; never print connector payloads.
+
+A registered ID alone is never green evidence that the agent loop runs.
+
 ---
 
 ## Step 2 — Check plugin setup state
@@ -69,15 +91,15 @@ Then for each plugin in the marketplace catalog:
 
 | Plugin | Setup command | What to verify |
 |---|---|---|
-| claude-cortex | (auto) | `/recall` returns something useful |
-| core-ops | `/setup-core` | `/pipeline-analyst` invocation works (or `/review-deliverable` runs) |
-| lead-engine | `/lead-setup` | `/lead-pipeline` shows an empty or populated pipeline (not an error) |
-| bizdev-outreach | `/setup` | `/bizdev-outreach` recognizes a contact name |
-| weekly-outreach | `/setup-outreach` | `/weekly-outreach` doesn't error on Step 0 |
-| news-curator | `/setup-news` | `/ai-roundup` doesn't error on Step 1 |
-| plan-tomorrow | `/setup-plan` | `/plan-tomorrow` doesn't error on Step 0 |
-| project-setup | `/setup-projects` | `/project-setup` references a real offering from your catalog |
-| weekly-alignment | `/setup` (in skills) | `/scan` doesn't fail on missing channels |
+| cortex | (foundation) | `/recall` returns useful, bounded context |
+| core-ops | `/setup-core` | pipeline analysis reads configured CRM stages |
+| daily-brief | `/setup-brief` | `/brief` lists unavailable sources honestly |
+| relationships | `/setup-relationships` | `/relationships` builds or cleanly empties its queue |
+| delivery | `/setup-projects`, `/setup-status` | `/project-setup` uses a real offering and `/client-status` drafts only |
+| time-tracking | `/setup-time` | `/track-time` can classify pasted or calendar events |
+| voice | `/setup-style` | `/style` reads the canonical voice file |
+| news-curator | `/setup-news` | `/ai-roundup` doesn't error on its source gate |
+| weekly-alignment | `/setup` | `/scan` names a missing Slack source instead of inventing activity |
 
 For each plugin the user says they have:
 - "Have you run the setup command?" (Y/N)
@@ -94,12 +116,14 @@ Each subagent is registered in Claude's `subagent_type` enum when its plugin is 
 
 | Subagent | Lives in | Quick test |
 |---|---|---|
-| `memory-librarian` | claude-cortex | "Try `/search` with a broad query — does it route to memory-librarian?" |
-| `transcript-reviewer` | claude-cortex | "Available; runs on demand or scheduled." |
-| `contact-researcher` | lead-engine | "Available to bizdev-outreach, weekly-outreach, lead-engine commands." |
-| `pipeline-analyst` | core-ops | "Available to weekly-outreach, plan-tomorrow." |
+| `memory-librarian` | cortex | "Try `/search` with a broad query — does it route to memory-librarian?" |
+| `note-taker` | cortex | "Used by `/listen`; unavailable source modes are disclosed." |
+| `relationships-director` | relationships | "Used for ranking and single-contact research." |
+| `pipeline-analyst` | core-ops | "Available to relationships, daily-brief, delivery, and pipeline reviews." |
+| `pipeline-forecast` | core-ops | "Used for monthly or explicit forecasts." |
 | `news-curator` (agent) | news-curator | "Used by `/ai-roundup`." |
 | `post-assembler` | news-curator | "Used by `/ai-roundup`." |
+| `alignment-scanner` | weekly-alignment | "Used by Slack scan, pulse, report, and risk updates." |
 
 For each: report whether the parent plugin is installed (per Step 2). If yes → ✓. If no → ✗ "Install [plugin] to make this subagent available."
 
@@ -114,7 +138,7 @@ If the user reports a subagent isn't being invoked when expected, suggest:
 
 Connectors (CRM, email, calendar, etc.) are installed via Cowork's connections panel separately from plugins. Per identity.md's "Primary tools" section, ask the user to confirm each is connected:
 
-For each tool listed in `~/Documents/Claude/identity.md` Primary tools section:
+For each tool listed in `<config-root>/memory/me/identity.md` Primary tools section:
 - "[Tool name] connected in Cowork? (Y/N)"
 - If N → ✗ "Plugins that need [tool] will fall back to inline mode or fail. Connect via Cowork → Connections → [tool]."
 - If Y → ✓
@@ -125,8 +149,8 @@ Common connectors:
 - Google Calendar / Outlook Calendar
 - Slack
 - Google Drive
-- Apollo (for lead-engine)
-- Granola (for transcript-reviewer)
+- Apollo (for relationships enrichment, when configured)
+- Granola or another note source (for note-taker transcript mode)
 
 ---
 
@@ -161,7 +185,7 @@ Then offer to step through the highest-priority fixes interactively.
 - **Don't auto-fix.** This is diagnosis, not surgery. Surface what's broken and recommend the fix, but let the user run the fix.
 - **Ask, don't assume.** Plugin install state and connector state are user-dependent — ask rather than guess.
 - **Lead with the highest-impact red item.** Don't dump 15 issues equally; rank by what unblocks the most.
-- **Be specific.** "Identity is missing" is unhelpful. "Identity file at `~/Documents/Claude/identity.md` is missing — run `/setup-identity` (in cortex)" is helpful.
+- **Be specific.** "Identity is missing" is unhelpful. "Identity file at `<config-root>/memory/me/identity.md` is missing — run `/setup-identity` (in cortex)" is helpful.
 - **Don't be alarmist.** A missing optional file (e.g., voice.md) is fine if the user doesn't draft. Note it as informational, not red.
 
 ---

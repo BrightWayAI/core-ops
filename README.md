@@ -15,12 +15,12 @@ The shared-utility plugin that other plugins in the [BrightWayAI marketplace](ht
 ### Slash commands (7)
 
 - **`/cos`** — talk to your chief of staff. Natural-language front door; also fires implicitly on plain conversation via `skills/cos/SKILL.md` wherever the host supports always-loaded skill routing.
-- **`/setup-core`** — interview that captures CRM context, brand context, owner info. Writes to `references/user-context.md`.
+- **`/setup-core`** — interview that captures CRM context, brand context, and owner info. Writes to `<config-root>/plugins/core-ops.user-context.md`.
 - **`/diagnose`** — ecosystem health check. Audits shared config files (`identity.md`, `voice.md`, cortex memory), plugin setup state, subagent availability, connector wiring. Produces a green/red checklist with specific fix instructions.
 - **`/test-connectors`** — performs bounded, read-only calls against real authorized connectors and returns a sanitized release-certification report. User assertions and mocked payloads cannot pass.
 - **`/log-agent-run`** — append a meta-record about a notable subagent invocation to `~/.brightway-state/agent-log.jsonl`. Captures agent / parent skill / confidence / user action — never message content.
 - **`/agent-metrics`** — read-only digest of the agent log. Surfaces top performers, slipping agents, high-abandonment paths, confidence trends.
-- **`/register-schedules`** — bulk-register standing schedules from `references/schedules.md` with Cowork's scheduled-tasks system. Useful for new-machine setup or after Cowork reinstall.
+- **`/register-schedules`** — reconcile user-owned definitions from `<config-root>/plugins/core-ops/schedules.md` with the active host scheduler. Useful for new-machine setup or after scheduler reinstall.
 
 ## Install
 
@@ -41,7 +41,7 @@ Then run `/setup-core`. The interview captures:
 - **Brand context** — brand colors, typography, tone-of-voice rules, optional path to your brand guide.
 - **Owner info** — anything not already in shared identity.
 
-Saved to `references/user-context.md` (gitignored).
+Saved to `<config-root>/plugins/core-ops.user-context.md`.
 
 You can re-run `/setup-core` anytime to update.
 
@@ -50,7 +50,7 @@ You can re-run `/setup-core` anytime to update.
 This plugin is a hub — many other plugins delegate to its subagents:
 
 - **weekly-outreach + plan-tomorrow** call `pipeline-analyst` for weekly/daily prioritization.
-- **time-tracking + client-status** integrate with `pipeline-analyst` to surface revenue-vs-time and engagement-vs-pipeline views.
+- **Time Tracking + Delivery** integrate with `pipeline-analyst` to surface revenue-vs-time and engagement-vs-pipeline views.
 - All plugins benefit from `/diagnose` to verify setup state.
 - `/register-schedules` orchestrates standing schedules across the whole marketplace.
 
@@ -82,8 +82,8 @@ references/
   user-context.template.md     Structure (committed)
   user-context.md              Your config (gitignored, created by setup)
   agent-log-schema.md          JSONL schema for the agent-run log
-  schedules.template.md        Starter schedule library (user-editable)
-  schedules.md                 Your active schedules (gitignored after first /register-schedules)
+  schedules.template.md        Immutable starter schedule library
+  schedules.md                 Immutable schema and workflow reference
 ```
 
 ## Dependencies
