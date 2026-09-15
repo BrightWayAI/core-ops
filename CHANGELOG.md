@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.4] — writing-style renamed to voice (2026-09-15)
+
+### Changed
+- `commands/nucleus-status.md` — plugin-name and config-file references updated
+  from `writing-style` to `voice` (Nucleus Operating Model Refactor Phase 3
+  step 3.4).
+
 ## [0.4.3] — Identity/voice moved to memory/me/ (2026-09-15)
 
 ### Changed

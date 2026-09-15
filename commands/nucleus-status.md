@@ -58,7 +58,7 @@ project-setup        → project-setup.user-context.md
 time-tracking        → time-tracking.user-context.md
 client-status        → client-status.user-context.md
 weekly-alignment     → weekly-alignment.org-context.md
-writing-style        → writing-style.user-context.md
+voice                → voice.user-context.md
 ```
 
 Per plugin, the state is one of:
@@ -134,7 +134,7 @@ PLUGINS (14)
   ✓ configured  (10): claude-cortex, core-ops, lead-engine, bizdev-outreach,
                        weekly-outreach, referral-engine, news-curator,
                        daily-brief, plan-tomorrow, project-setup
-  ⚠ template   (1):  writing-style (run /setup-style to fill in)
+  ⚠ template   (1):  voice (run /setup-style to fill in)
   ✗ missing    (3):  time-tracking, client-status, weekly-alignment
 
 CONNECTORS
