@@ -1,8 +1,14 @@
 # Changelog
 
-All notable changes to core-ops are documented here.
+All notable changes to ops (formerly core-ops) are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
+
+## [0.7.0] — Renamed to ops (2026-09-15)
+
+### Changed
+- Renamed from `core-ops` to `ops` (display name: Chief of Staff) as part of the 2026-09-15 Nucleus plugin rename. Old plugin ID/repo name redirects; see marketplace catalog.
+- `/nucleus-status` renamed to `/status`; `/nucleus-dashboard` renamed to `/dashboard`. Old command names remain as deprecated one-line aliases.
 
 ## [0.6.4] — routing and schedule-state hardening (2026-09-15)
 

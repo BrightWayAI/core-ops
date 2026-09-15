@@ -1,7 +1,7 @@
 {
-  "name": "core-ops",
-  "version": "0.6.4",
-  "description": "Use a natural-language chief-of-staff front door, analyze CRM pipeline, inspect Nucleus health, record agent metrics, and register schedules when the host supports them.",
+  "name": "ops",
+  "version": "0.7.0",
+  "description": "Chief of Staff. Use a natural-language chief-of-staff front door, analyze CRM pipeline, inspect Nucleus health, record agent metrics, and register schedules when the host supports them.",
   "author": {
     "name": "BrightWay AI",
     "url": "https://brightwayai.com"
@@ -16,7 +16,7 @@
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Core Ops",
+    "displayName": "Chief of Staff",
     "shortDescription": "Route work and run pipeline and stack operations",
     "longDescription": "Use a natural-language chief-of-staff front door, analyze CRM pipeline, inspect Nucleus health, record agent metrics, and register schedules when the host supports them.",
     "developerName": "BrightWay AI",

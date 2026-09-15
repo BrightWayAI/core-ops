@@ -5,9 +5,9 @@ state never live in this installed plugin directory.
 
 ## User-owned paths
 
-- Definitions: `<config-root>/plugins/core-ops/schedules.md`
-- Per-host IDs: `<config-root>/plugins/core-ops/schedule-registrations/<host-id>.json`
-- Run receipts: `<config-root>/plugins/core-ops/schedule-runs/<schedule>/<run-id>.json`
+- Definitions: `<config-root>/plugins/ops/schedules.md`
+- Per-host IDs: `<config-root>/plugins/ops/schedule-registrations/<host-id>.json`
+- Run receipts: `<config-root>/plugins/ops/schedule-runs/<schedule>/<run-id>.json`
 
 Run `/register-schedules` to copy the starter, validate installed dependencies,
 reconcile this host's scheduler, preview changes, and request confirmation.

@@ -2,7 +2,7 @@
 
 ## What this plugin does with your data
 
-Core Ops is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-forecast` subagents (CRM intelligence), `/diagnose` (ecosystem health), telemetry (`/log-agent-run`, `/agent-metrics`), and the schedule library (`/register-schedules`).
+Ops (Chief of Staff) is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-forecast` subagents (CRM intelligence), `/diagnose` (ecosystem health), telemetry (`/log-agent-run`, `/agent-metrics`), and the schedule library (`/register-schedules`).
 
 **Reads:**
 - **CRM** — for `pipeline-analyst` and `pipeline-forecast` subagents (deals, contacts, pipeline stages, owners, custom properties).
@@ -12,8 +12,8 @@ Core Ops is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-fo
 - **Cortex memory** (if installed) — for `/diagnose` to verify cortex initialization status. Read-only.
 
 **Writes:**
-- **Plugin settings** — `<config-root>/plugins/core-ops.user-context.md` (after `/setup-core`).
-- **Schedule definitions/state/receipts** — `<config-root>/plugins/core-ops/`; installed references are never mutated.
+- **Plugin settings** — `<config-root>/plugins/ops.user-context.md` (after `/setup-core`).
+- **Schedule definitions/state/receipts** — `<config-root>/plugins/ops/`; installed references are never mutated.
 - **Agent log** — `~/.brightway-state/agent-log.jsonl` (append-only by `/log-agent-run`).
 - **Cowork scheduled tasks** — `/register-schedules` registers entries with Cowork's scheduled-tasks system, with explicit user confirmation per registration.
 
@@ -27,7 +27,7 @@ Core Ops is the shared toolkit plugin: hosts `pipeline-analyst` and `pipeline-fo
 ## Where data lives
 
 - Immutable plugin reference files inside the installed plugin directory.
-- User settings and schedule state under `<config-root>/plugins/core-ops/`.
+- User settings and schedule state under `<config-root>/plugins/ops/`.
 - Agent log at `~/.brightway-state/agent-log.jsonl` (your machine only; never sent off-device).
 - Shared identity (read-only) at `<config-root>/memory/me/identity.md`.
 

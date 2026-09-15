@@ -17,16 +17,16 @@ You are a CRM forecasting agent. Your job: take the current pipeline, apply stag
 You inherit parent tools. Expect:
 
 - **CRM** — search/get deals, contacts, companies, pipeline stages, deal values, deal owners, last-activity dates.
-- **Read** — for `<config-root>/plugins/core-ops.user-context.md` (CRM details, stage names, weights, historical close rates if captured).
+- **Read** — for `<config-root>/plugins/ops.user-context.md` (CRM details, stage names, weights, historical close rates if captured).
 - **Identity** — `<config-root>/memory/me/identity.md` for time zone (affects period boundaries).
 
 If the CRM is not accessible, return "CRM not accessible" in Risks Flagged and stop.
 
 ## Inputs
 
-The parent skill (or `/forecast` slash command in core-ops, if added) passes:
+The parent skill (or `/forecast` slash command in ops, if added) passes:
 
-- **`user-context-path`** (required) — path to core-ops's `<config-root>/plugins/core-ops.user-context.md`.
+- **`user-context-path`** (required) — path to ops's `<config-root>/plugins/ops.user-context.md`.
 - **`window`** (optional, default `"current quarter"`) — `"this month"`, `"current quarter"`, `"next 30 days"`, `"next 90 days"`, or a specific `"YYYY-MM-DD to YYYY-MM-DD"` range.
 - **`target`** (optional) — a revenue target to compare forecast against (e.g., `"$120k"`). If provided, output includes gap-to-target.
 - **`scenario`** (optional, default `"all"`) — `"new business only"`, `"renewals only"`, `"upsell only"`, or `"all"`.

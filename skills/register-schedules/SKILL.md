@@ -1,7 +1,7 @@
 ---
 disable-model-invocation: true
 name: register-schedules
-description: "Register user-owned standing schedules from <config-root>/plugins/core-ops/schedules.md with the active host scheduler, keeping per-host IDs and run receipts outside the installed plugin. Auto-fires on /register-schedules, register all my schedules, set up my standing schedules, rebuild my scheduled tasks, or similar provisioning requests. Common usage: first setup, a new machine, or host reinstall."
+description: "Register user-owned standing schedules from <config-root>/plugins/ops/schedules.md with the active host scheduler, keeping per-host IDs and run receipts outside the installed plugin. Auto-fires on /register-schedules, register all my schedules, set up my standing schedules, rebuild my scheduled tasks, or similar provisioning requests. Common usage: first setup, a new machine, or host reinstall."
 ---
 
 <!-- OPENAI-ADAPTER:START -->

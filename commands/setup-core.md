@@ -1,10 +1,10 @@
 ---
-description: Configure core-ops for your CRM, brand, and company context via a short interview. Writes results to `<config-root>/plugins/core-ops.user-context.md`, using the shared vendor-neutral config-root resolver. Re-run anytime to update.
+description: Configure ops for your CRM, brand, and company context via a short interview. Writes results to `<config-root>/plugins/ops.user-context.md`, using the shared vendor-neutral config-root resolver. Re-run anytime to update.
 ---
 
 # /setup-core
 
-Short interview that captures the context the core-ops agents and commands need to actually be useful for *you*.
+Short interview that captures the context the ops agents and commands need to actually be useful for *you*.
 
 ---
 
@@ -42,15 +42,15 @@ Read `<config-root>/memory/me/identity.md` (the canonical identity file populate
 - **Exists and populated** → pre-fill the Identity section of this interview from those values. Skip those questions; just confirm what you read.
 - **Missing** → offer: "Want to capture name/company/role/tools once via `/setup-identity` (in cortex) so all marketplace plugins can read it? Or capture identity inline here only?" Route to `/setup-identity` if user prefers, then resume. Otherwise proceed inline.
 
-For the rest of this document, **`<config-root>`** refers to the resolved path. This plugin's config file lives at **`<config-root>/plugins/core-ops.user-context.md`**.
+For the rest of this document, **`<config-root>`** refers to the resolved path. This plugin's config file lives at **`<config-root>/plugins/ops.user-context.md`**.
 
 ---
 
 ## Step 1 — Check for existing config
 
-Read `<config-root>/plugins/core-ops.user-context.md` if it exists.
+Read `<config-root>/plugins/ops.user-context.md` if it exists.
 
-- If it exists and is populated → ask: "You've already configured core-ops. Want to update specific sections, or start over?"
+- If it exists and is populated → ask: "You've already configured ops. Want to update specific sections, or start over?"
   - "Update [section]" → jump to that section, ask only those questions, write back.
   - "Start over" → continue full interview.
 - If it doesn't exist → start fresh. Read `references/user-context.template.md` (bundled with the plugin source) for the structure to populate.
@@ -95,10 +95,10 @@ Ask one section at a time. After each section, summarize what you heard and ask 
 
 ## Step 3 — Write the config
 
-Populate `<config-root>/plugins/core-ops.user-context.md` with the answers, using the template structure. Format clearly — agents and commands will read this file every invocation, so structure it for fast reading:
+Populate `<config-root>/plugins/ops.user-context.md` with the answers, using the template structure. Format clearly — agents and commands will read this file every invocation, so structure it for fast reading:
 
 ```markdown
-# core-ops user context
+# ops user context
 
 _Last updated: [date]_
 
@@ -134,7 +134,7 @@ _Last updated: [date]_
 
 After writing, summarize what was saved (one short paragraph) and offer a concrete next step:
 
-- If CRM is configured → "Ask for a pipeline review; core-ops will use `pipeline-analyst` read-only."
+- If CRM is configured → "Ask for a pipeline review; ops will use `pipeline-analyst` read-only."
 - If brand is configured → "Try `/review-deliverable [path]` on a recent draft."
 - If both → both above, plus "Or just keep working — both will use this context automatically."
 
@@ -146,4 +146,4 @@ After writing, summarize what was saved (one short paragraph) and offer a concre
 - **Skip what doesn't apply.** If the user doesn't have a brand guide, "no brand guide yet" is a valid answer — capture it as such.
 - **Don't pad answers.** If the user says "skip Section 4," skip it. Note in user-context that it was skipped so the agents know to use defaults.
 - **Idempotent.** Running `/setup-core` again should let the user update sections without re-doing everything.
-- **Privacy-respecting.** Everything written goes to `<config-root>/plugins/core-ops.user-context.md`, which is gitignored — never committed to a fork.
+- **Privacy-respecting.** Everything written goes to `<config-root>/plugins/ops.user-context.md`, which is gitignored — never committed to a fork.

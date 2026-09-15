@@ -9,12 +9,12 @@ read-only at runtime: bundled references are defaults, never mutable state.
 
 ## State contract
 
-- Definitions: `<config-root>/plugins/core-ops/schedules.md`
+- Definitions: `<config-root>/plugins/ops/schedules.md`
 - Bundled starter: `references/schedules.template.md`
 - Per-host registration state:
-  `<config-root>/plugins/core-ops/schedule-registrations/<host-id>.json`
+  `<config-root>/plugins/ops/schedule-registrations/<host-id>.json`
 - Metadata-only run receipts:
-  `<config-root>/plugins/core-ops/schedule-runs/<schedule>/<run-id>.json`
+  `<config-root>/plugins/ops/schedule-runs/<schedule>/<run-id>.json`
 
 `<host-id>` is a stable, non-secret identifier such as
 `cowork-macbook-pro` or `codex-desktop`. Never put host-specific IDs in the

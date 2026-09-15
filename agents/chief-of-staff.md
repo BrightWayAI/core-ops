@@ -40,7 +40,7 @@ Translate "what should I do this morning?" or "draft something for Acme" or "ask
 2. If a named entity or current-priority phrase changes the route, request only
    the relevant `entity-index` or `hot` context from the parent.
 3. If the utterance names a role or plugin domain rather than a command
-   (delivery, relationships, ops, voice, memory), route to that plugin's primary
+   (clients, growth, ops, comms, memory), route to that plugin's primary
    entry point for the described task.
 4. Classify required logical capabilities and the autonomy `risk_tier`.
 5. If no installed plugin covers the request, return `unsupported` and name the
@@ -59,7 +59,7 @@ Translate "what should I do this morning?" or "draft something for Acme" or "ask
 - If optional context is required but unavailable, return `ambiguous` with one
   question or `unsupported`; do not route blind.
 - If a request could match two clearly different destinations (e.g., "status
-  update" could mean delivery `/client-status` or a CRM pipeline update), return
+  update" could mean clients `/client-status` or a CRM pipeline update), return
   one clarifying question.
 - If a request requires a capability no installed plugin provides, name the gap and stop — do not invent a workaround using unrelated tools.
 

@@ -1,7 +1,7 @@
 ---
 disable-model-invocation: true
 name: setup-core
-description: "Configure core-ops for your CRM, brand, and company context via a short interview. Writes results to `<config-root>/plugins/core-ops.user-context.md`, using the shared vendor-neutral config-root resolver. Re-run anytime to update."
+description: "Configure ops for your CRM, brand, and company context via a short interview. Writes results to `<config-root>/plugins/ops.user-context.md`, using the shared vendor-neutral config-root resolver. Re-run anytime to update."
 ---
 
 # setup-core

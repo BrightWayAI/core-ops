@@ -6,7 +6,7 @@ description: Audit the user's plugin ecosystem health. Checks shared config file
 
 Health check for your marketplace plugin ecosystem. Reports what's set up correctly, what's missing, and what to do about it.
 
-This command is part of `core-ops` because the toolkit plugin is the natural place for cross-cutting diagnostics. You can invoke it whenever something feels broken or whenever you've added/changed plugins and want to confirm everything's wired up.
+This command is part of `ops` because the toolkit plugin is the natural place for cross-cutting diagnostics. You can invoke it whenever something feels broken or whenever you've added/changed plugins and want to confirm everything's wired up.
 
 ---
 
@@ -32,7 +32,7 @@ If missing: ✗ → "Run `/setup-voice` (cortex) to capture writing voice once. 
 - **Has at least one node**?
 - **`memory/me/user.md` exists**?
 
-If missing: ✗ → "Cortex hasn't been initialized. Either install claude-cortex or, if installed, restart Cowork to trigger initialization."
+If missing: ✗ → "Cortex hasn't been initialized. Either install cortex or, if installed, restart Cowork to trigger initialization."
 
 ### 1D — Memory-as-git (`<config-root>/memory/.git/`)
 
@@ -53,16 +53,16 @@ Surface all of the above as a single `Memory-as-git: <enabled/disabled> · last 
 python3 scripts/cortex_cli.py check-caps --memory-root <config-root>/memory
 ```
 
-(This is a claude-cortex script — resolve its path relative to the cortex plugin, same pattern as any other cross-plugin script call.) Read-only, deterministic — same check `/reindex` and `/cleanup` Section M run. Report as a single line: `Memory caps: clean` or `Memory caps: <N> FAIL, <M> WARN — run /cleanup for detail`. A FAIL here means `/recall`'s default load boundary (< 4K tokens per node) is broken for at least one node — treat as a ✗ in Step 5, not just informational.
+(This is a cortex script — resolve its path relative to the cortex plugin, same pattern as any other cross-plugin script call.) Read-only, deterministic — same check `/reindex` and `/cleanup` Section M run. Report as a single line: `Memory caps: clean` or `Memory caps: <N> FAIL, <M> WARN — run /cleanup for detail`. A FAIL here means `/recall`'s default load boundary (< 4K tokens per node) is broken for at least one node — treat as a ✗ in Step 5, not just informational.
 
 ### 1F — Scheduled-loop health
 
 Scheduling is optional, but a configured loop must be observable:
 
-- Definitions: `<config-root>/plugins/core-ops/schedules.md`
+- Definitions: `<config-root>/plugins/ops/schedules.md`
 - This host's registration record:
-  `<config-root>/plugins/core-ops/schedule-registrations/<host-id>.json`
-- Receipts: `<config-root>/plugins/core-ops/schedule-runs/<schedule>/`
+  `<config-root>/plugins/ops/schedule-registrations/<host-id>.json`
+- Receipts: `<config-root>/plugins/ops/schedule-runs/<schedule>/`
 
 If the scheduler can list tasks, reconcile live state; live state wins over cached
 IDs. For `nightly-listen`, report one of:
@@ -92,14 +92,14 @@ Then for each plugin in the marketplace catalog:
 | Plugin | Setup command | What to verify |
 |---|---|---|
 | cortex | (foundation) | `/recall` returns useful, bounded context |
-| core-ops | `/setup-core` | pipeline analysis reads configured CRM stages |
-| daily-brief | `/setup-brief` | `/brief` lists unavailable sources honestly |
-| relationships | `/setup-relationships` | `/relationships` builds or cleanly empties its queue |
-| delivery | `/setup-projects`, `/setup-status` | `/project-setup` uses a real offering and `/client-status` drafts only |
-| time-tracking | `/setup-time` | `/track-time` can classify pasted or calendar events |
-| voice | `/setup-style` | `/style` reads the canonical voice file |
-| news-curator | `/setup-news` | `/ai-roundup` doesn't error on its source gate |
-| weekly-alignment | `/setup` | `/scan` names a missing Slack source instead of inventing activity |
+| ops | `/setup-core` | pipeline analysis reads configured CRM stages |
+| briefing | `/setup-brief` | `/brief` lists unavailable sources honestly |
+| growth | `/setup-relationships` | `/relationships` builds or cleanly empties its queue |
+| clients | `/setup-projects`, `/setup-status` | `/project-setup` uses a real offering and `/client-status` drafts only |
+| admin | `/setup-time` | `/track-time` can classify pasted or calendar events |
+| comms | `/setup-style` | `/style` reads the canonical voice file |
+| research | `/setup-news` | `/ai-roundup` doesn't error on its source gate |
+| alignment | `/setup` | `/scan` names a missing Slack source instead of inventing activity |
 
 For each plugin the user says they have:
 - "Have you run the setup command?" (Y/N)
@@ -118,12 +118,12 @@ Each subagent is registered in Claude's `subagent_type` enum when its plugin is 
 |---|---|---|
 | `memory-librarian` | cortex | "Try `/search` with a broad query — does it route to memory-librarian?" |
 | `note-taker` | cortex | "Used by `/listen`; unavailable source modes are disclosed." |
-| `relationships-director` | relationships | "Used for ranking and single-contact research." |
-| `pipeline-analyst` | core-ops | "Available to relationships, daily-brief, delivery, and pipeline reviews." |
-| `pipeline-forecast` | core-ops | "Used for monthly or explicit forecasts." |
-| `news-curator` (agent) | news-curator | "Used by `/ai-roundup`." |
-| `post-assembler` | news-curator | "Used by `/ai-roundup`." |
-| `alignment-scanner` | weekly-alignment | "Used by Slack scan, pulse, report, and risk updates." |
+| `relationships-director` | growth | "Used for ranking and single-contact research." |
+| `pipeline-analyst` | ops | "Available to growth, briefing, clients, and pipeline reviews." |
+| `pipeline-forecast` | ops | "Used for monthly or explicit forecasts." |
+| `news-curator` (agent) | research | "Used by `/ai-roundup`." |
+| `post-assembler` | research | "Used by `/ai-roundup`." |
+| `alignment-scanner` | alignment | "Used by Slack scan, pulse, report, and risk updates." |
 
 For each: report whether the parent plugin is installed (per Step 2). If yes → ✓. If no → ✗ "Install [plugin] to make this subagent available."
 
@@ -149,7 +149,7 @@ Common connectors:
 - Google Calendar / Outlook Calendar
 - Slack
 - Google Drive
-- Apollo (for relationships enrichment, when configured)
+- Apollo (for growth enrichment, when configured)
 - Granola or another note source (for note-taker transcript mode)
 
 ---

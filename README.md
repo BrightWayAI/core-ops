@@ -1,4 +1,4 @@
-# core-ops
+# ops
 
 A generic business-ops toolkit for Claude (Cowork + Claude Code).
 
@@ -15,12 +15,12 @@ The shared-utility plugin that other plugins in the [BrightWayAI marketplace](ht
 ### Slash commands (7)
 
 - **`/cos`** — talk to your chief of staff. Natural-language front door; also fires implicitly on plain conversation via `skills/cos/SKILL.md` wherever the host supports always-loaded skill routing.
-- **`/setup-core`** — interview that captures CRM context, brand context, and owner info. Writes to `<config-root>/plugins/core-ops.user-context.md`.
+- **`/setup-core`** — interview that captures CRM context, brand context, and owner info. Writes to `<config-root>/plugins/ops.user-context.md`.
 - **`/diagnose`** — ecosystem health check. Audits shared config files (`identity.md`, `voice.md`, cortex memory), plugin setup state, subagent availability, connector wiring. Produces a green/red checklist with specific fix instructions.
 - **`/test-connectors`** — performs bounded, read-only calls against real authorized connectors and returns a sanitized release-certification report. User assertions and mocked payloads cannot pass.
 - **`/log-agent-run`** — append a meta-record about a notable subagent invocation to `~/.brightway-state/agent-log.jsonl`. Captures agent / parent skill / confidence / user action — never message content.
 - **`/agent-metrics`** — read-only digest of the agent log. Surfaces top performers, slipping agents, high-abandonment paths, confidence trends.
-- **`/register-schedules`** — reconcile user-owned definitions from `<config-root>/plugins/core-ops/schedules.md` with the active host scheduler. Useful for new-machine setup or after scheduler reinstall.
+- **`/register-schedules`** — reconcile user-owned definitions from `<config-root>/plugins/ops/schedules.md` with the active host scheduler. Useful for new-machine setup or after scheduler reinstall.
 
 ## Install
 
@@ -28,7 +28,7 @@ Recommended: install via the [BrightWayAI marketplace](https://github.com/Bright
 
 ```
 /plugin marketplace add BrightWayAI/nucleus
-/plugin install core-ops@nucleus
+/plugin install ops@nucleus
 ```
 
 ## First-time setup
@@ -41,7 +41,7 @@ Then run `/setup-core`. The interview captures:
 - **Brand context** — brand colors, typography, tone-of-voice rules, optional path to your brand guide.
 - **Owner info** — anything not already in shared identity.
 
-Saved to `<config-root>/plugins/core-ops.user-context.md`.
+Saved to `<config-root>/plugins/ops.user-context.md`.
 
 You can re-run `/setup-core` anytime to update.
 
@@ -49,8 +49,8 @@ You can re-run `/setup-core` anytime to update.
 
 This plugin is a hub — many other plugins delegate to its subagents:
 
-- **weekly-outreach + plan-tomorrow** call `pipeline-analyst` for weekly/daily prioritization.
-- **Time Tracking + Delivery** integrate with `pipeline-analyst` to surface revenue-vs-time and engagement-vs-pipeline views.
+- **growth + briefing** call `pipeline-analyst` for weekly/daily prioritization.
+- **Admin + Client Success** integrate with `pipeline-analyst` to surface revenue-vs-time and engagement-vs-pipeline views.
 - All plugins benefit from `/diagnose` to verify setup state.
 - `/register-schedules` orchestrates standing schedules across the whole marketplace.
 
@@ -95,9 +95,9 @@ references/
 <!-- OPENAI-SUPPORT:START -->
 ## ChatGPT and Codex
 
-Core Ops ships as a native OpenAI plugin as well as a Claude plugin. In
-ChatGPT desktop Local Work, enable **Core Ops** and ask naturally or mention
-`@Core Ops`. In Codex, use natural language or the namespaced skills exposed
+Ops (Chief of Staff) ships as a native OpenAI plugin as well as a Claude plugin. In
+ChatGPT desktop Local Work, enable **Chief of Staff** and ask naturally or mention
+`@Chief of Staff`. In Codex, use natural language or the namespaced skills exposed
 by the plugin. Claude slash-command names in this README remain workflow aliases.
 
 All hosts resolve the same `<config-root>` used by Cortex, so Claude, ChatGPT desktop,
