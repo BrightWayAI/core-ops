@@ -11,6 +11,11 @@ Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `
 - GPT-discoverable skill aliases for canonical command workflows and read-only Codex role bindings where this plugin ships agents.
 - Shared config-root resolution compatible with Cortex and Claude; all GPT tests use repository fixtures or temporary directories only.
 
+## [0.12.0] — Eval suite: chief-of-staff routing cases (2026-09-15)
+
+### Added
+- Six new `claude plugin eval` cases in `evals/` extending the existing `chief-of-staff-natural-language` case: `catch-me-up-natural-language`, `follow-up-routing-natural-language` (routes to `growth`), `draft-checkin-routing-natural-language` (routes to `comms`), `ask-client-success-routing-natural-language` (role-addressed, routes to `clients`), `bill-routing-natural-language` (routes to `admin`), and `team-misaligned-routing-natural-language` (routes to `alignment`). All `llm`-graded, checking `/cos` produces a structured route plan and delegates rather than executing the target workflow itself.
+
 ## [0.11.0] — Phase 3 consistency fixes (2026-09-15)
 
 ### Changed
