@@ -4,6 +4,14 @@ All notable changes to core-ops are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.6.3] — Codex adapter synchronization (2026-09-15)
+
+### Added
+- Read-only Codex binding and OpenAI host preamble for the `chief-of-staff` `/cos` entrypoint.
+
+### Fixed
+- Updated Codex metadata and degraded behavior after deliverable QA moved to `delivery`.
+
 ## [0.6.2] — claude plugin eval suite (2026-09-15)
 
 Nucleus Operating Model Refactor Phase 4 step 4.2.

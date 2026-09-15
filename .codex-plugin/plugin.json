@@ -1,7 +1,7 @@
 {
   "name": "core-ops",
-  "version": "0.6.2",
-  "description": "Natural-language chief-of-staff front door, CRM pipeline analysis, Nucleus health diagnostics, agent metrics, and schedule registration when the host supports them. Deliverable QA moved to delivery, 2026-09-15.",
+  "version": "0.6.3",
+  "description": "Use a natural-language chief-of-staff front door, analyze CRM pipeline, inspect Nucleus health, record agent metrics, and register schedules when the host supports them.",
   "author": {
     "name": "BrightWay AI",
     "url": "https://brightwayai.com"
@@ -17,8 +17,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Core Ops",
-    "shortDescription": "Run pipeline, delivery QA, diagnostics, and stack operations",
-    "longDescription": "Natural-language chief-of-staff front door (replaces nucleus-router), CRM pipeline analysis, Nucleus health diagnostics, agent metrics, and schedule registration when the host supports them.",
+    "shortDescription": "Route work and run pipeline and stack operations",
+    "longDescription": "Use a natural-language chief-of-staff front door, analyze CRM pipeline, inspect Nucleus health, record agent metrics, and register schedules when the host supports them.",
     "developerName": "BrightWay AI",
     "category": "Business",
     "capabilities": [
@@ -28,7 +28,7 @@
     ],
     "websiteURL": "https://github.com/BrightWayAI/core-ops",
     "defaultPrompt": [
-      "What should I do this morning?",
+      "What can Nucleus do?",
       "Analyze my pipeline.",
       "Diagnose my Nucleus setup."
     ]

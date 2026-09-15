@@ -52,7 +52,7 @@ redirected to another store.
 
 ## Plugin-specific degradation
 
-CRM, document rendering, artifact, and scheduling capabilities are independent. Use available inputs, produce Markdown when rich artifacts are unavailable, and provide schedule definitions without claiming registration when no scheduler exists.
+CRM, artifacts, and scheduling are independent capabilities. Use available inputs, name missing specialist plugins, and provide schedule definitions without claiming registration when no scheduler exists.
 
 Always report unavailable or skipped capabilities in the result. A degraded run must
 remain useful where possible, but it must never imply that missing data was read or an
