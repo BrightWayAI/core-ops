@@ -31,7 +31,7 @@ See `commands/nucleus-status.md` for the full output format and detection logic.
 ## Inputs
 
 - `~/Documents/.claude-plugin-config-root` pointer file (must exist)
-- `<config-root>/identity.md`, `<config-root>/voice.md` (existence + populated check)
+- `<config-root>/memory/me/identity.md`, `<config-root>/memory/me/voice.md` (existence + populated check)
 - `<config-root>/memory/DASHBOARD.md` (cortex health signal)
 - `<config-root>/plugins/*.user-context.md` (per-plugin setup state)
 - `<config-root>/memory/.decay-config.md`, `<config-root>/plugins/cortex.note-sources.md`, `<config-root>/memory/.scope-migration-done` (v4.3+/v4.4+ markers)

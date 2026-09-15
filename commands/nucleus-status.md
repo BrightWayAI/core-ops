@@ -33,8 +33,8 @@ For each shared config file, capture: exists? populated? (size > 0 and contains 
 
 | File | Path | Owned by |
 |---|---|---|
-| Identity | `<config-root>/identity.md` | cortex `/setup-identity` |
-| Voice | `<config-root>/voice.md` | cortex `/setup-voice` |
+| Identity | `<config-root>/memory/me/identity.md` | cortex `/setup-identity` |
+| Voice | `<config-root>/memory/me/voice.md` | cortex `/setup-voice` |
 | Cortex DASHBOARD | `<config-root>/memory/DASHBOARD.md` | cortex auto-commit |
 | Decay config (v4.4+) | `<config-root>/memory/.decay-config.md` | cortex (auto-created on first /recall) |
 | Note sources (v4.3+) | `<config-root>/plugins/cortex.note-sources.md` | cortex `/setup-sources` |

@@ -17,7 +17,7 @@ Ensure access to `~/Documents`. In Cowork, call `request_cowork_directory(~/Docu
 - **Pointer missing** → stop with: "No plugin config root configured. Run any plugin's `/setup-*` command first."
 - **Pointer exists** → read line 1 → that's `<config-root>`. Ensure access to it. Continue.
 
-Determine `today_local` from `<config-root>/identity.md` time zone (fallback: system local).
+Determine `today_local` from `<config-root>/memory/me/identity.md` time zone (fallback: system local).
 
 ---
 

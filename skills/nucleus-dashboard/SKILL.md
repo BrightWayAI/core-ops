@@ -30,7 +30,7 @@ See `commands/nucleus-dashboard.md` for the full workflow.
 
 ## Inputs (all read-only)
 
-- `<config-root>/identity.md`, `<config-root>/voice.md`
+- `<config-root>/memory/me/identity.md`, `<config-root>/memory/me/voice.md`
 - `<config-root>/memory/` (DASHBOARD, triage-log, decay-config, scope-migration marker, person/, sampled knowledge entries)
 - `<config-root>/plugins/*.user-context.md` (per-plugin setup state)
 - `<config-root>/plugins/lead-engine.pipeline.md` + `.sent-log.md` (if lead-engine installed)

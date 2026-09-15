@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.4.3] — Identity/voice moved to memory/me/ (2026-09-15)
+
+### Changed
+- Path references updated from `<config-root>/identity.md` / `<config-root>/voice.md` to `<config-root>/memory/me/identity.md` / `<config-root>/memory/me/voice.md`, per the Nucleus Operating Model Refactor Phase 2 scopes restructure (identity/voice are personal, not org-shared facts). No behavior change beyond the path.
+
 ## [0.4.2] — Diagnose reports memory cap violations (2026-09-15)
 
 ### Added
