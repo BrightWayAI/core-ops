@@ -4,11 +4,25 @@ All notable changes to ops (formerly core-ops) are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.10.0] — `/setup-voice` ownership moves to Comms Desk (2026-09-15)
+
+### Changed
+- `README.md`, `commands/status.md`, `commands/diagnose.md` updated to attribute `/setup-voice` to the `comms` plugin (Comms Desk) instead of `cortex` — the interview moved there, while `<config-root>/memory/me/voice.md` remains a Cortex-owned canonical file.
+
 ## [0.8.0] — pipeline agents move to growth (2026-09-15)
 
 ### Changed
 - `pipeline-analyst` and `pipeline-forecast` subagents (and their Codex mirrors) moved to the `growth` plugin. `chief-of-staff` (`/cos`) now delegates to `growth:pipeline-analyst` / `growth:pipeline-forecast` when growth is installed, and reports "Growth Engine not installed; pipeline analysis skipped" otherwise. Ops no longer reads the CRM directly.
 - Updated README, SECURITY.md, `/diagnose`, `/setup-core`, `skills/setup/SKILL.md`, and reference templates to reflect the new ownership.
+
+## [0.9.0] — `/dashboard` moved to briefing (2026-09-15)
+
+### Removed
+- `/dashboard` (rich visual Cowork-artifact stack surface), its skill, and `references/nucleus-dashboard-template.html` moved to the `briefing` plugin (Today's Brief), per the "Today's Brief is every what's-going-on surface at any cadence" container rule. `ops` retains `/status` (terse text snapshot) and `/diagnose` (troubleshooting) — these explicitly did NOT move.
+
+### Changed
+- `/nucleus-dashboard` (the existing deprecated alias) now routes to `briefing:dashboard` instead of an in-plugin `/dashboard`, with a degraded-mode skip + `/status` suggestion if `briefing` isn't installed.
+- `/status` and its skill updated to point at briefing's `/dashboard` for the richer visual surface.
 
 ## [0.7.0] — Renamed to ops (2026-09-15)
 

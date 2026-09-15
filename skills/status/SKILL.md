@@ -1,6 +1,6 @@
 ---
 name: status
-description: At-a-glance Nucleus stack snapshot — installed plugins, setup state, connector availability, recent activity, memory health, anything broken. Terse text output in chat, scannable in 10 seconds. Auto-fires on "/status", "stack status", "is everything wired up", "show my nucleus", "check my plugins", "what's installed", or any phrase asking for a quick health snapshot. For a richer visual surface use `/dashboard`; for troubleshooting use `/diagnose`.
+description: At-a-glance Nucleus stack snapshot — installed plugins, setup state, connector availability, recent activity, memory health, anything broken. Terse text output in chat, scannable in 10 seconds. Auto-fires on "/status", "stack status", "is everything wired up", "show my nucleus", "check my plugins", "what's installed", or any phrase asking for a quick health snapshot. For a richer visual surface use briefing's `/dashboard`; for troubleshooting use `/diagnose`.
 ---
 
 <!-- OPENAI-ADAPTER:START -->
@@ -24,7 +24,7 @@ See `commands/status.md` for the full output format and detection logic.
 ## What this skill is NOT for
 
 - **Troubleshooting** — that's `/diagnose`. Status surfaces problems; diagnose walks you through fixes.
-- **Visual dashboard with impact metrics** — that's `/dashboard`.
+- **Visual dashboard with impact metrics** — that's briefing's `/dashboard` (moved from ops 2026-09-15).
 - **Per-plugin configuration** — that's the plugin's own `/setup-*` command.
 - **Memory audit** — that's `/cleanup`.
 

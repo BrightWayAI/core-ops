@@ -1,5 +1,5 @@
 ---
-description: At-a-glance snapshot of your Nucleus stack — installed plugins, setup state, connector availability, last-runs, anything broken. Terse text output in chat, scannable in 10 seconds. Run any time. For a richer visual surface use `/dashboard`; for deep troubleshooting use `/diagnose`.
+description: At-a-glance snapshot of your Nucleus stack — installed plugins, setup state, connector availability, last-runs, anything broken. Terse text output in chat, scannable in 10 seconds. Run any time. For a richer visual surface use briefing's `/dashboard`; for deep troubleshooting use `/diagnose`.
 ---
 
 # /status
@@ -9,7 +9,7 @@ One-screen view of your Nucleus stack health. Three sibling commands serve overl
 | Command | Purpose | Output |
 |---|---|---|
 | `/status` | "Is everything wired up?" | Terse text in chat, ~10 second read |
-| `/dashboard` | "What's my system doing this week?" | Rich Cowork artifact with activity + impact metrics |
+| `briefing:dashboard` | "What's my system doing this week?" | Rich Cowork artifact with activity + impact metrics (owned by the `briefing` plugin as of 2026-09-15) |
 | `/diagnose` | "Something's broken — what's wrong and how do I fix it?" | Per-issue troubleshooting steps |
 
 This command is the terse check. No diagnostics, no walkthroughs — just a snapshot.
@@ -36,7 +36,7 @@ For each shared config file, capture: exists? populated? (size > 0 and contains 
 | File | Path | Owned by |
 |---|---|---|
 | Identity | `<config-root>/memory/me/identity.md` | cortex `/setup-identity` |
-| Voice | `<config-root>/memory/me/voice.md` | cortex `/setup-voice` |
+| Voice | `<config-root>/memory/me/voice.md` | comms `/setup-voice` |
 | Cortex DASHBOARD | `<config-root>/memory/DASHBOARD.md` | cortex auto-commit |
 | Decay config (v4.4+) | `<config-root>/memory/.decay-config.md` | cortex (auto-created on first /recall) |
 | Note sources (v4.3+) | `<config-root>/plugins/cortex.note-sources.md` | cortex `/setup-sources` |
@@ -175,7 +175,7 @@ If anything is broken (missing pointer file, plugin in broken state, expected fi
 
 If everything is green, exit cleanly. If anything is in `template` or `missing` state, finish with a one-line nudge:
 
-> "Some plugins not set up. Run `/diagnose` for per-plugin walkthrough, or `/dashboard` for the visual surface."
+> "Some plugins not set up. Run `/diagnose` for per-plugin walkthrough, or briefing's `/dashboard` for the visual surface (if briefing is installed)."
 
 Don't loop back into other commands automatically. The user decides.
 
@@ -184,7 +184,7 @@ Don't loop back into other commands automatically. The user decides.
 ## Behavior rules
 
 - **Read-only.** No file writes, no config changes, no telemetry log (this command is itself excluded from `/log-agent-run` to avoid recursion noise).
-- **Terse.** ~30-40 lines of output. Anything longer belongs in `/dashboard`.
+- **Terse.** ~30-40 lines of output. Anything longer belongs in briefing's `/dashboard`.
 - **Cap probes.** No deep file reads. No connector tool calls. State detection is filesystem + tool-name existence only.
 - **Fast.** Target < 2 seconds wall time. The user runs this when they want a quick check, not a deep audit.
 - **Honest about ambiguity.** If a plugin's user-context file exists but contains unparseable garbage, mark it `⚠` rather than `✓` or `✗`. Don't crash on bad input.
@@ -192,7 +192,7 @@ Don't loop back into other commands automatically. The user decides.
 ## What this command is NOT for
 
 - **Troubleshooting** — that's `/diagnose`. Status surfaces what's broken; diagnose explains why and how to fix.
-- **Visual dashboard / weekly review** — that's `/dashboard`.
+- **Visual dashboard / weekly review** — that's briefing's `/dashboard` (moved from ops 2026-09-15).
 - **Per-plugin deep audit** — that's the plugin's own `/setup-*` command run with the "update" path.
 - **Memory cleanup** — that's `/cleanup`.
 - **Telemetry analysis** — that's `/agent-metrics`.

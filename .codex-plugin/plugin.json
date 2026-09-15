@@ -1,6 +1,6 @@
 {
   "name": "ops",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Chief of Staff. Use a natural-language chief-of-staff front door, inspect Nucleus health, record agent metrics, and register schedules when the host supports them. Delegates CRM pipeline analysis and forecasting to the growth plugin when installed.",
   "author": {
     "name": "BrightWay AI",
