@@ -92,10 +92,10 @@ Then for each plugin in the marketplace catalog:
 | Plugin | Setup command | What to verify |
 |---|---|---|
 | cortex | (foundation) | `/recall` returns useful, bounded context |
-| ops | `/setup-core` | pipeline analysis reads configured CRM stages |
+| ops | `/setup-core` | `/cos` resolves installed workflows dynamically; `/status` and `/diagnose` remain read-only and name missing capabilities honestly |
 | briefing | `/setup-brief` | `/brief` lists unavailable sources honestly |
 | growth | `/setup-relationships` | `/relationships` builds or cleanly empties its queue |
-| clients | `/setup-projects`, `/setup-status` | `/project-setup` uses a real offering, `/client-status` drafts only, and `<config-root>/plugins/clients.sow-template.md` exists (else `/sow` note: "SOW template not configured — outputs use generic default styling; run `/setup-projects` with a sample SOW to fix") |
+| clients | `/setup-projects`, `/setup-status` | `/project-setup` uses a real offering, `/client-status` drafts only, and `<config-root>/plugins/clients.sow-template.md` contains Format spec, Section skeleton, and Boilerplate clauses (pre-0.7.1 templates lacking approved boilerplate are incomplete and must be enriched via `/setup-projects`) |
 | admin | `/setup-time` | `/track-time` can classify pasted or calendar events |
 | comms | `/setup-style` | `/style` reads the canonical voice file |
 | research | `/setup-news` | `/roundup` doesn't error on its source gate |

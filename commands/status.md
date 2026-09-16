@@ -51,7 +51,7 @@ cortex               → memory/me/identity.md + voice.md; cortex.user-context.m
 ops                  → ops.user-context.md
 briefing             → briefing.user-context.md
 growth               → growth.user-context.md
-clients              → clients.user-context.md + clients-status.user-context.md (+ clients.sow-template.md: report "SOW template: configured (from <sample filename>)" or "SOW template: not configured — /sow will use generic default styling; run /setup-projects to fix")
+clients              → clients.user-context.md + clients-status.user-context.md (+ clients.sow-template.md: report "SOW template: configured (from <sample filename>)" only when Format spec, Section skeleton, and Boilerplate clauses are all present; report "incomplete — re-run /setup-projects to capture approved boilerplate" for pre-0.7.1 templates; otherwise "not configured — /sow will use generic styling and cannot supply approved legal boilerplate")
 admin                → admin.user-context.md
 comms                → comms.user-context.md
 research             → research.user-context.md

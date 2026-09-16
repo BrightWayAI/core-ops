@@ -4,6 +4,13 @@ All notable changes to ops (formerly core-ops) are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.12.1] — OpenAI SOW routing hardening (2026-09-16)
+
+### Fixed
+- `/diagnose` now verifies Ops as a routing and stack-operations plugin instead of incorrectly claiming it reads CRM pipeline stages after that responsibility moved to Growth Engine.
+- Updated the canonical repository URL from the retired `core-ops` name to `ops`; legacy GitHub redirects remain compatible.
+- `/status` and `/diagnose` distinguish complete SOW templates from pre-0.7.1 files that lack approved boilerplate instead of treating file existence as sufficient.
+
 ## [0.11.1] — OpenAI host adapter (2026-09-14)
 
 ### Added
