@@ -50,3 +50,10 @@ workflow signal. Generic conversation and generic "help" remain outside its
 trigger boundary.
 
 If no plugin covers the request, the agent says so and names the missing capability rather than improvising a workaround.
+
+Routing is always resolved dynamically from the installed catalog's manifest
+and command descriptions — no intent table is hardcoded here. As one example,
+`clients`' `commands/sow.md` frontmatter covers "turn this proposal into an
+SOW," "draft a statement of work," and "SOW amendment," so those utterances
+route to `clients` `/sow` without any change needed in this file when a new
+command like it is added.

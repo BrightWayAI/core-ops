@@ -95,7 +95,7 @@ Then for each plugin in the marketplace catalog:
 | ops | `/setup-core` | pipeline analysis reads configured CRM stages |
 | briefing | `/setup-brief` | `/brief` lists unavailable sources honestly |
 | growth | `/setup-relationships` | `/relationships` builds or cleanly empties its queue |
-| clients | `/setup-projects`, `/setup-status` | `/project-setup` uses a real offering and `/client-status` drafts only |
+| clients | `/setup-projects`, `/setup-status` | `/project-setup` uses a real offering, `/client-status` drafts only, and `<config-root>/plugins/clients.sow-template.md` exists (else `/sow` note: "SOW template not configured — outputs use generic default styling; run `/setup-projects` with a sample SOW to fix") |
 | admin | `/setup-time` | `/track-time` can classify pasted or calendar events |
 | comms | `/setup-style` | `/style` reads the canonical voice file |
 | research | `/setup-news` | `/roundup` doesn't error on its source gate |
