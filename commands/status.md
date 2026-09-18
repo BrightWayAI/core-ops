@@ -112,9 +112,22 @@ Check `<config-root>/briefs/` directory:
 ### G — Scheduled-loop snapshot
 
 Read this host's registration state and the newest metadata-only `nightly-listen`
-receipt. Do not call connectors. Report `not configured`, `pending first run`,
-`healthy <age>`, or `stale/failed <sanitized code>`. Cached registration without a
-recent receipt is not healthy evidence.
+receipt. Do not call connectors, and never treat the scheduler's own success flag as
+evidence — a task can report "succeeded" while never having reached
+`<config-root>` at all (no folder binding). Report healthy **only when both** hold:
+
+1. The newest `nightly-listen` receipt has `status: "succeeded"` (or the older
+   `outcome: "success"` shape) with a timestamp within the last 26 hours.
+2. Calling `/register-schedules --verify` read-only shows the live task's
+   `derived_state.folders_state != NONE` for `nightly-listen`.
+
+Otherwise report `stale/failed <error_code>` — using the receipt's `error_code` when
+one exists (e.g. `config_root_unreachable`), or `no-folder-binding` when check 2
+fails — plus the one-line fix: "open the task in the Claude desktop app on the linked
+Mac, turn on 'Require this computer', attach `<config-root>`, then re-run
+`/register-schedules --verify`." A cached registration without a recent receipt is
+not healthy, and a recent-looking receipt without a verified folder binding is not
+healthy either — both conditions must hold before this section reports green.
 
 ---
 
@@ -162,7 +175,7 @@ DAILY BRIEF
   Last 30 days:  18 briefs generated
 
 SCHEDULED LOOP
-  nightly-listen: healthy · last success 9h ago · 4/4 configured sources covered
+  nightly-listen: healthy · last success 9h ago · folders bound · 4/4 configured sources covered
 
 NOTHING BROKEN
 ```

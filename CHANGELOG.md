@@ -4,6 +4,18 @@ All notable changes to ops (formerly core-ops) are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versions match `plugin.json`.
 
+## [0.13.0] — Schedule folder-binding enforcement (2026-09-18)
+
+### Fixed
+- `nightly-listen` (and every other schedule in the library) could be registered without device/folder binding and would report scheduler "success" every night while never actually reaching `<config-root>`. `/register-schedules` now requires `requires_local_device=true` and `folders=[<config-root>]` on every registration and verifies the binding via `list_triggers`/`derived_state` immediately after `create_trigger` — a row that fails verification is reported `failed: no-folder-binding` and no registration-state record is written for it.
+
+### Added
+- `/register-schedules --verify` — read-only mode that re-checks an already-registered host task's folder binding and bumps `last_verified_at`, without creating/updating/deleting anything.
+- Definition fingerprint now includes `requires_local_device` + `folders`, so pre-existing registrations made before this requirement (including the live `nightly-listen` task) classify as `changed` and get re-registered with proper binding on the next `/register-schedules` run.
+- Registered prompts must now include an explicit instruction to fail loudly (`error_code: config_root_unreachable`, non-zero exit, no receipt claiming success) when `<config-root>` is unreachable at run time.
+- `/status`'s SCHEDULED LOOP section no longer trusts the scheduler's own success flag — it requires a recent (`<26h`) succeeded receipt AND a verified live folder binding (via `--verify`, read-only) before reporting healthy.
+- `README.md` and cortex's `/start-nucleus` now state the device/folder-binding requirement for `nightly-listen` up front.
+
 ## [0.12.1] — OpenAI SOW routing hardening (2026-09-16)
 
 ### Fixed

@@ -20,3 +20,13 @@ customize the user-owned copy. The installed plugin directory is read-only at ru
   expected output, and metadata-only receipt path.
 - Remove or comment out schedules you do not use. Removing a row does not silently
   delete an already-registered host task.
+- **Every row above reads or writes `<config-root>`, so every row registers with
+  `requires_local_device=true` and `folders=[<config-root>]`.** This binds the task
+  to the specific computer the registering conversation is linked to — the Mac must
+  be online with the Claude desktop app running at fire time. `/register-schedules`
+  verifies this binding after every create/update via `list_triggers` and refuses to
+  record a registration whose `derived_state.folders_state == NONE`. The definition
+  fingerprint used to detect `changed` rows includes `requires_local_device` and
+  `folders`, so a pre-existing registration made before this requirement existed will
+  classify as `changed` and get re-registered with proper binding on the next
+  `/register-schedules` run.

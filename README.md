@@ -18,7 +18,7 @@ The shared-utility plugin that other plugins in the [BrightWayAI marketplace](ht
 - **`/test-connectors`** — performs bounded, read-only calls against real authorized connectors and returns a sanitized release-certification report. User assertions and mocked payloads cannot pass.
 - **`/log-agent-run`** — append a meta-record about a notable subagent invocation to `~/.brightway-state/agent-log.jsonl`. Captures agent / parent skill / confidence / user action — never message content.
 - **`/agent-metrics`** — read-only digest of the agent log. Surfaces top performers, slipping agents, high-abandonment paths, confidence trends.
-- **`/register-schedules`** — reconcile user-owned definitions from `<config-root>/plugins/ops/schedules.md` with the active host scheduler. Useful for new-machine setup or after scheduler reinstall.
+- **`/register-schedules`** — reconcile user-owned definitions from `<config-root>/plugins/ops/schedules.md` with the active host scheduler. Useful for new-machine setup or after scheduler reinstall. Every registered schedule (including `nightly-listen`) binds to the specific Mac the registering conversation is linked to — the Claude desktop app must be running and that Mac must be awake and online at fire time, or the run is skipped until the next window. `--verify` re-checks an already-registered task's folder binding without re-registering it.
 
 ## Install
 
